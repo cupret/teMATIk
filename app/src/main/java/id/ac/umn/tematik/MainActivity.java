@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
         ApiServiceProvider apiServiceProvider = new ApiServiceProvider();
         apiServiceProvider.getProduk();
+        apiServiceProvider.getPromo();
+        apiServiceProvider.getPlayList();
     }
 
     public void setActionBar(Toolbar toolbar){
