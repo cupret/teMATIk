@@ -12,12 +12,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiServiceProvider{
-    private ApiService apiService;
+    private static ApiService apiService;
+    private static ArrayList<Produk> produks;
+    private static ArrayList<Promo> promos;
+    private static ArrayList<Music> playList;
 
     static final String API_URL = "https://my-json-server.typicode.com/starfallproduction/mockdata/";
 
-//    public void start() {
-    public ApiServiceProvider(){
+    public ApiServiceProvider(){}
+
+    public static void init(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -26,7 +30,23 @@ public class ApiServiceProvider{
         apiService = retrofit.create(ApiService.class);
     }
 
-    public void getProduk(){
+    public static ApiService getInstance(){
+        if(apiService == null) init();
+        return apiService;
+    }
+
+    public void update(){
+        loadProduk();
+        loadPromo();
+    }
+
+
+    public static ArrayList<Produk> getProduk(){
+        if(produks == null) loadProduk();
+        return produks;
+    }
+
+    public static void loadProduk(){
         Call<ArrayList<Produk>> call = apiService.loadProduk();
         call.enqueue(new Callback<ArrayList<Produk>>() {
             @Override
@@ -35,7 +55,7 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        ArrayList<Produk> produks = response.body();
+                        produks = response.body();
                         for(int x=0; x<produks.size(); x++){
                             Log.i("diamond", "Perhiasan nama: "+ produks.get(x).getName());
                             Log.i("diamond", "Perhiasan spesifikasi nama: "+ produks.get(x).getSpesifikasiBerlian().get(0).getName());
@@ -49,12 +69,17 @@ public class ApiServiceProvider{
 
             @Override
             public void onFailure(Call<ArrayList<Produk>> call, Throwable t) {
-
             }
         });
     }
 
-    public void getPromo(){
+
+    public static ArrayList<Promo> getPromo(){
+        if(promos == null) loadPromo();
+        return promos;
+    }
+
+    private static void loadPromo(){
         Call<ArrayList<Promo>> call = apiService.loadPromo();
         call.enqueue(new Callback<ArrayList<Promo>>() {
             @Override
@@ -63,7 +88,7 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        ArrayList<Promo> promos = response.body();
+                        promos = response.body();
                         for(int x=0; x<promos.size(); x++){
                             Log.i("promo", "Promo nama: "+ promos.get(x).getName());
                         }
@@ -81,7 +106,12 @@ public class ApiServiceProvider{
         });
     }
 
-    public void getPlayList(){
+    public static ArrayList<Music> getPlayList(){
+        if(playList == null) loadPlayList();
+        return playList;
+    }
+
+    public static void loadPlayList(){
         Call<ArrayList<Music>> call = apiService.loadPlayList();
         call.enqueue(new Callback<ArrayList<Music>>() {
             @Override
@@ -90,7 +120,7 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        ArrayList<Music> playList = response.body();
+                        playList = response.body();
                         for(int x=0; x<playList.size(); x++){
                             Log.i("playlist", "Music nama: "+ playList.get(x).getName());
                         }
