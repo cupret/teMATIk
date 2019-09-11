@@ -12,27 +12,32 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiServiceProvider{
+    private static ApiServiceProvider apiServiceProvider;
+
     private static ApiService apiService;
-    private static ArrayList<Produk> produks;
-    private static ArrayList<Promo> promos;
-    private static ArrayList<Music> playList;
+    private ArrayList<Produk> produks;
+    private ArrayList<Promo> promos;
+    private ArrayList<Music> playList;
 
     static final String API_URL = "https://my-json-server.typicode.com/starfallproduction/mockdata/";
 
     public ApiServiceProvider(){}
 
     public static void init(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        apiService = retrofit.create(ApiService.class);
     }
 
-    public static ApiService getInstance(){
-        if(apiService == null) init();
-        return apiService;
+    public static ApiServiceProvider getInstance(){
+        if(apiServiceProvider == null){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            apiService = retrofit.create(ApiService.class);
+        }
+
+        return apiServiceProvider;
     }
 
     public void update(){
@@ -41,12 +46,12 @@ public class ApiServiceProvider{
     }
 
 
-    public static ArrayList<Produk> getProduk(){
+    public ArrayList<Produk> getProduk(){
         if(produks == null) loadProduk();
         return produks;
     }
 
-    public static void loadProduk(){
+    public void loadProduk(){
         Call<ArrayList<Produk>> call = apiService.loadProduk();
         call.enqueue(new Callback<ArrayList<Produk>>() {
             @Override
@@ -74,12 +79,12 @@ public class ApiServiceProvider{
     }
 
 
-    public static ArrayList<Promo> getPromo(){
+    public ArrayList<Promo> getPromo(){
         if(promos == null) loadPromo();
         return promos;
     }
 
-    private static void loadPromo(){
+    private void loadPromo(){
         Call<ArrayList<Promo>> call = apiService.loadPromo();
         call.enqueue(new Callback<ArrayList<Promo>>() {
             @Override
@@ -106,12 +111,12 @@ public class ApiServiceProvider{
         });
     }
 
-    public static ArrayList<Music> getPlayList(){
+    public ArrayList<Music> getPlayList(){
         if(playList == null) loadPlayList();
         return playList;
     }
 
-    public static void loadPlayList(){
+    public void loadPlayList(){
         Call<ArrayList<Music>> call = apiService.loadPlayList();
         call.enqueue(new Callback<ArrayList<Music>>() {
             @Override
