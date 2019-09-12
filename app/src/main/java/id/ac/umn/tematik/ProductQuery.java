@@ -5,7 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface ProductQuery {
@@ -13,10 +13,10 @@ public interface ProductQuery {
     public void insert(Product product);
 
     @Query("SELECT * FROM product")
-    public ArrayList<Product> getAllProduct();
+    public List<Product> getAllProduct();
 
     @Query("SELECT * FROM product")
-    public LiveData<ArrayList<Product>> getAllLiveDataProduct();
+    public LiveData<List<Product>> getAllLiveDataProduct();
 
     @Query("DELETE FROM product")
     public void deleteAllProduct();

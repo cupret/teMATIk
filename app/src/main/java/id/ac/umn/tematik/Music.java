@@ -7,14 +7,13 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "music")
 public class Music {
     @PrimaryKey
-    @NonNull
     private Integer id;
-    public String name;
-    public String url;
+    private String name;
+    private String url;
 
-    public Music(Integer id, String nama, String url){
+    public Music(@NonNull Integer id, String name, String url){
         this.id = id;
-        this.name = nama;
+        this.name = name;
         this.url = url;
     }
 

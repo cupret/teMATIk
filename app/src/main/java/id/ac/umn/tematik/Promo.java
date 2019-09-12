@@ -3,12 +3,7 @@ package id.ac.umn.tematik;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 @Entity(tableName = "promo")
@@ -35,45 +30,9 @@ public class Promo {
 
     public Integer getId(){ return this.id; }
     public String getName(){ return this.name; }
-    public ArrayList<String> getImagesUrl(){ return this.images_url; }
-    public String getVideoUrl(){ return this.video_url; }
+    public ArrayList<String> getImages_url(){ return this.images_url; }
+    public String getVideo_url(){ return this.video_url; }
     public String getDescription(){ return this.description; }
     public String getDate(){ return this.date; }
-    public ArrayList<Integer> getProductList(){ return this.product_list; }
-
-    public class GambarConverter{
-        @TypeConverter
-        public String fromGambar(ArrayList<String> gambar){
-            if(gambar == null) return null;
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-            return gson.toJson(gambar, type);
-        }
-
-        @TypeConverter
-        public ArrayList<String> toGambar(String gambar){
-            if(gambar == null) return null;
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-            return gson.fromJson(gambar, type);
-        }
-    }
-
-    public class ProdukListConverter{
-        @TypeConverter
-        public String fromProdukList(ArrayList<Integer> produkList){
-            if(produkList == null) return null;
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
-            return gson.toJson(produkList, type);
-        }
-
-        @TypeConverter
-        public ArrayList<Integer> toProdukList(String produkList){
-            if(produkList == null) return null;
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
-            return gson.fromJson(produkList, type);
-        }
-    }
+    public ArrayList<Integer> getProduct_list(){ return this.product_list; }
 }

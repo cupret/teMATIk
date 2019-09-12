@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface MusicQuery {
@@ -14,10 +14,10 @@ public interface MusicQuery {
     public void insert(Music music);
 
     @Query("SELECT * FROM music")
-    public ArrayList<Music> getAllMusic();
+    public List<Music> getAllMusic();
 
     @Query("SELECT * FROM music")
-    public LiveData<ArrayList<Music>> getAllLiveDataMusic();
+    public LiveData<List<Music>> getAllLiveDataMusic();
 
     @Query("DELETE FROM music")
     public void deleteAllMusic();

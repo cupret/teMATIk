@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,21 +15,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiServiceProvider{
     private static ApiServiceProvider apiServiceProvider;
-
-    private static ApiService apiService;
-
+    private ApiService apiService;
     static final String API_URL = "https://tematik-daab8.firebaseio.com/";
 
-    public ApiServiceProvider(){}
+    public ApiServiceProvider(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .callbackExecutor(Executors.newSingleThreadExecutor())
+                .build();
+
+        apiService = retrofit.create(ApiService.class);
+    }
 
     public static ApiServiceProvider getInstance(){
         if(apiServiceProvider == null){
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(API_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            apiService = retrofit.create(ApiService.class);
+            apiServiceProvider = new ApiServiceProvider();
         }
 
         return apiServiceProvider;
@@ -51,7 +54,7 @@ public class ApiServiceProvider{
                         ArrayList<Product> products = response.body();
                         for(int x=0; x<products.size(); x++){
                             Log.i("diamond", "Perhiasan nama: "+ products.get(x).getName());
-                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ products.get(x).getDiamondSpecification().get(0).getName());
+                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ products.get(x).getDiamond_specification().get(0).getName());
                             LocalDatabase.getInstance(context).productQuery().insert(products.get(x));
                         }
 
