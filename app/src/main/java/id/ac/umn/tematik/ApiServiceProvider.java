@@ -16,7 +16,7 @@ public class ApiServiceProvider{
 
     private static ApiService apiService;
 
-    static final String API_URL = "https://my-json-server.typicode.com/starfallproduction/mockdata/";
+    static final String API_URL = "https://tematik-daab8.firebaseio.com/";
 
     public ApiServiceProvider(){}
 
