@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface ApiService {
 
-    @GET("produk") Call<ArrayList<Produk>> loadProduk();
+    @GET("product") Call<ArrayList<Product>> loadProduct();
 
     @GET("promo") Call<ArrayList<Promo>> loadPromo();
 

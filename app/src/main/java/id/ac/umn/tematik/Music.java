@@ -9,16 +9,16 @@ public class Music {
     @PrimaryKey
     @NonNull
     private Integer id;
-    public String nama;
+    public String name;
     public String url;
 
     public Music(Integer id, String nama, String url){
         this.id = id;
-        this.nama = nama;
+        this.name = nama;
         this.url = url;
     }
 
     public Integer getId(){ return this.id; }
-    public String getName(){ return this.nama; }
+    public String getName(){ return this.name; }
     public String getUrl(){ return this.url; }
 }

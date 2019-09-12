@@ -7,11 +7,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Produk.class, Promo.class, Music.class}, version = 1)
+@Database(entities = {Product.class, Promo.class, Music.class}, version = 1)
 public abstract class LocalDatabase extends RoomDatabase {
     private static LocalDatabase localDatabase;
 
-    public abstract ProdukQuery produkQuery();
+    public abstract ProductQuery productQuery();
     public abstract PromoQuery promoQuery();
     public abstract MusicQuery musicQuery();
 

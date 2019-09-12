@@ -34,25 +34,25 @@ public class ApiServiceProvider{
     }
 
     public void update(Context context){
-        loadProduk(context);
+        loadProduct(context);
         loadPromo(context);
         loadPlayList(context);
     }
 
-    private void loadProduk(final Context context){
-        Call<ArrayList<Produk>> call = apiService.loadProduk();
-        call.enqueue(new Callback<ArrayList<Produk>>() {
+    public void loadProduct(final Context context){
+        Call<ArrayList<Product>> call = apiService.loadProduct();
+        call.enqueue(new Callback<ArrayList<Product>>() {
             @Override
-            public void onResponse(Call<ArrayList<Produk>> call, Response<ArrayList<Produk>> response) {
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        ArrayList<Produk> produks = response.body();
-                        for(int x=0; x<produks.size(); x++){
-                            Log.i("diamond", "Perhiasan nama: "+ produks.get(x).getName());
-                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ produks.get(x).getSpesifikasiBerlian().get(0).getName());
-                            LocalDatabase.getInstance(context).produkQuery().insert(produks.get(x));
+                        ArrayList<Product> products = response.body();
+                        for(int x=0; x<products.size(); x++){
+                            Log.i("diamond", "Perhiasan nama: "+ products.get(x).getName());
+                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ products.get(x).getDiamondSpecification().get(0).getName());
+                            LocalDatabase.getInstance(context).productQuery().insert(products.get(x));
                         }
 
                     } else {
@@ -62,7 +62,7 @@ public class ApiServiceProvider{
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Produk>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
             }
         });
     }
