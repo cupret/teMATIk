@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ApiServiceProvider.getInstance().getProduk();
+        ApiServiceProvider.getInstance().getProduct();
         ApiServiceProvider.getInstance().getPromo();
         ApiServiceProvider.getInstance().getPlayList();
     }

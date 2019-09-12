@@ -1,6 +1,5 @@
 package id.ac.umn.tematik;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class ApiServiceProvider{
     private static ApiServiceProvider apiServiceProvider;
 
     private static ApiService apiService;
-    private ArrayList<Produk> produks;
+    private ArrayList<Product> products;
     private ArrayList<Promo> promos;
     private ArrayList<Music> playList;
 
@@ -41,29 +40,29 @@ public class ApiServiceProvider{
     }
 
     public void update(){
-        loadProduk();
+        loadProduct();
         loadPromo();
     }
 
 
-    public ArrayList<Produk> getProduk(){
-        if(produks == null) loadProduk();
-        return produks;
+    public ArrayList<Product> getProduct(){
+        if(products == null) loadProduct();
+        return products;
     }
 
-    public void loadProduk(){
-        Call<ArrayList<Produk>> call = apiService.loadProduk();
-        call.enqueue(new Callback<ArrayList<Produk>>() {
+    public void loadProduct(){
+        Call<ArrayList<Product>> call = apiService.loadProduct();
+        call.enqueue(new Callback<ArrayList<Product>>() {
             @Override
-            public void onResponse(Call<ArrayList<Produk>> call, Response<ArrayList<Produk>> response) {
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        produks = response.body();
-                        for(int x=0; x<produks.size(); x++){
-                            Log.i("diamond", "Perhiasan nama: "+ produks.get(x).getName());
-                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ produks.get(x).getSpesifikasiBerlian().get(0).getName());
+                        products = response.body();
+                        for(int x = 0; x< products.size(); x++){
+                            Log.i("diamond", "Perhiasan nama: "+ products.get(x).getName());
+                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ products.get(x).getDiamondSpecification().get(0).getName());
                         }
 
                     } else {
@@ -73,7 +72,7 @@ public class ApiServiceProvider{
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Produk>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
             }
         });
     }

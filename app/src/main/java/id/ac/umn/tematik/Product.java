@@ -12,75 +12,80 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-@Entity(tableName = "produk")
-public class Produk {
+@Entity(tableName = "product")
+public class Product {
     @PrimaryKey
     @NonNull
     private Integer id;
-    private String nama;
+    private String name;
 
     @TypeConverters(GambarConverter.class)
-    private ArrayList<String> gambar;
+    private ArrayList<String> images_url;
 
-    private String video;
-    private String deskripsi;
-    private boolean lapisan_rodhium;
-    private Integer estimasi_berat;
+    private String video_url;
+    private Integer price;
+    private String description;
+    private boolean rodhium_surface;
+    private Integer weight_estimation;
 
     @TypeConverters(SpesifikasiBerlianConverter.class)
-    private ArrayList<Spesifikasi_berlian> spesifikasi_berlian;
+    private ArrayList<Spesifikasi_berlian> diamond_specification;
 
-    public Produk(
+    public Product(
             Integer id,
-            String nama,
-            ArrayList<String> gambar,
-            String deskripsi,
-            boolean lapisan_rodhium,
-            Integer estimasi_berat,
-            ArrayList<Spesifikasi_berlian> spesifikasi_berlian
+            String name,
+            ArrayList<String> images_url,
+            String video_url,
+            Integer price,
+            String description,
+            boolean rodhium_surface,
+            Integer weight_estimation,
+            ArrayList<Spesifikasi_berlian> diamond_specification
     ){
         this.id = id;
-        this.nama = nama;
-        this.gambar = gambar;
-        this.deskripsi = deskripsi;
-        this.lapisan_rodhium = lapisan_rodhium;
-        this.estimasi_berat = estimasi_berat;
-        this.spesifikasi_berlian = spesifikasi_berlian;
+        this.name = name;
+        this.images_url = images_url;
+        this.video_url = video_url;
+        this.price = price;
+        this.description = description;
+        this.rodhium_surface = rodhium_surface;
+        this.weight_estimation = weight_estimation;
+        this.diamond_specification = diamond_specification;
     }
 
     public Integer getId(){ return this.id; }
-    public String getName(){ return this.nama; }
-    public ArrayList<String> getGambar(){ return this.gambar; }
-    public String getVideo(){ return this.video; }
-    public String getDeskripsi(){ return this.deskripsi; }
-    public boolean getLapisanRodhium(){ return this.lapisan_rodhium; }
-    public Integer getSstimasiBerat(){ return this.estimasi_berat; }
-    public ArrayList<Spesifikasi_berlian> getSpesifikasiBerlian(){ return this.spesifikasi_berlian; }
+    public String getName(){ return this.name; }
+    public ArrayList<String> getImagesUrl(){ return this.images_url; }
+    public String getVideoUrl(){ return this.video_url; }
+    public String getDescription(){ return this.description; }
+    public boolean isRodhiumSurface(){ return this.rodhium_surface; }
+    public Integer getWeightEstimation(){ return this.weight_estimation; }
+    public ArrayList<Spesifikasi_berlian> getDiamondSpecification(){ return this.diamond_specification; }
 
     public class Spesifikasi_berlian{
-        private String nama;
-        private String bentuk;
-        private Integer jumlah;
-        private Integer berat_carat;
+        private String name;
+        private String shape;
+        private Integer quantity;
+        private Integer carat_weight;
         private boolean cut;
         private String color;
         private String clarity;
 
-        public Spesifikasi_berlian(String nama, String bentuk, Integer jumlah, Integer berat_carat, boolean cut, String color, String clarity){
-            this.nama = nama;
-            this.bentuk = bentuk;
-            this.jumlah = jumlah;
-            this.berat_carat = berat_carat;
+        public Spesifikasi_berlian(String nam3, String shape, Integer quantity, Integer carat_weight, boolean cut, String color, String clarity){
+            this.name = name;
+            this.shape = shape;
+            this.quantity = quantity;
+            this.carat_weight = weight_estimation;
             this.cut = cut;
             this.color = color;
             this.clarity = clarity;
         }
 
-        public String getName(){ return this.nama; }
-        public String getBentuk(){ return this.bentuk; }
-        public Integer getJumlah(){ return this.jumlah; }
-        public Integer getBeratCarat(){ return this.berat_carat; }
-        public boolean getCut(){ return this.cut; }
+        public String getName(){ return this.name; }
+        public String getShape(){ return this.shape; }
+        public Integer getQuantity(){ return this.quantity; }
+        public Integer getCaratWeight(){ return this.carat_weight; }
+        public boolean isCut(){ return this.cut; }
         public String getColor(){ return this.color; }
         public String getClarity(){ return this.clarity; }
     }
