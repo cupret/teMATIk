@@ -15,17 +15,10 @@ public class ApiServiceProvider{
     private static ApiServiceProvider apiServiceProvider;
 
     private static ApiService apiService;
-    private ArrayList<Produk> produks;
-    private ArrayList<Promo> promos;
-    private ArrayList<Music> playList;
 
     static final String API_URL = "https://my-json-server.typicode.com/starfallproduction/mockdata/";
 
     public ApiServiceProvider(){}
-
-    public static void init(){
-
-    }
 
     public static ApiServiceProvider getInstance(){
         if(apiServiceProvider == null){
@@ -40,18 +33,13 @@ public class ApiServiceProvider{
         return apiServiceProvider;
     }
 
-    public void update(){
-        loadProduk();
-        loadPromo();
+    public void update(Context context){
+        loadProduk(context);
+        loadPromo(context);
+        loadPlayList(context);
     }
 
-
-    public ArrayList<Produk> getProduk(){
-        if(produks == null) loadProduk();
-        return produks;
-    }
-
-    public void loadProduk(){
+    private void loadProduk(final Context context){
         Call<ArrayList<Produk>> call = apiService.loadProduk();
         call.enqueue(new Callback<ArrayList<Produk>>() {
             @Override
@@ -60,10 +48,11 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        produks = response.body();
+                        ArrayList<Produk> produks = response.body();
                         for(int x=0; x<produks.size(); x++){
                             Log.i("diamond", "Perhiasan nama: "+ produks.get(x).getName());
                             Log.i("diamond", "Perhiasan spesifikasi nama: "+ produks.get(x).getSpesifikasiBerlian().get(0).getName());
+                            LocalDatabase.getInstance(context).produkQuery().insert(produks.get(x));
                         }
 
                     } else {
@@ -78,13 +67,7 @@ public class ApiServiceProvider{
         });
     }
 
-
-    public ArrayList<Promo> getPromo(){
-        if(promos == null) loadPromo();
-        return promos;
-    }
-
-    private void loadPromo(){
+    private void loadPromo(final Context context){
         Call<ArrayList<Promo>> call = apiService.loadPromo();
         call.enqueue(new Callback<ArrayList<Promo>>() {
             @Override
@@ -93,9 +76,10 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        promos = response.body();
+                        ArrayList<Promo> promos = response.body();
                         for(int x=0; x<promos.size(); x++){
                             Log.i("promo", "Promo nama: "+ promos.get(x).getName());
+                            LocalDatabase.getInstance(context).promoQuery().insert(promos.get(x));
                         }
 
                     } else {
@@ -111,12 +95,7 @@ public class ApiServiceProvider{
         });
     }
 
-    public ArrayList<Music> getPlayList(){
-        if(playList == null) loadPlayList();
-        return playList;
-    }
-
-    public void loadPlayList(){
+    private void loadPlayList(final Context context){
         Call<ArrayList<Music>> call = apiService.loadPlayList();
         call.enqueue(new Callback<ArrayList<Music>>() {
             @Override
@@ -125,9 +104,10 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        playList = response.body();
+                        ArrayList<Music> playList = response.body();
                         for(int x=0; x<playList.size(); x++){
                             Log.i("playlist", "Music nama: "+ playList.get(x).getName());
+                            LocalDatabase.getInstance(context).musicQuery().insert(playList.get(x));
                         }
 
                     } else {

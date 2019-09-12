@@ -12,9 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ApiServiceProvider.getInstance().getProduk();
-        ApiServiceProvider.getInstance().getPromo();
-        ApiServiceProvider.getInstance().getPlayList();
+        ApiServiceProvider.getInstance().update(this);
     }
 
     public void setActionBar(Toolbar toolbar){
