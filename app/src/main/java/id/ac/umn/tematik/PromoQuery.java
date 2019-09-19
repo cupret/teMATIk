@@ -19,6 +19,12 @@ public interface PromoQuery {
     @Query("SELECT * FROM promo")
     public LiveData<List<Promo>> getAllLiveDataPromo();
 
+    @Query("SELECT * FROM promo  WHERE id = :id")
+    public Promo getPromo(int id);
+
+    @Query("SELECT * FROM promo  WHERE id = :id")
+    public LiveData<Promo> getLiveDataPromo(int id);
+
     @Query("DELETE FROM promo")
     public void deleteAllPromo();
 }

@@ -49,7 +49,7 @@ public class Main extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View btn) {
-                MainDirections.ActionMainToDetail action = MainDirections.actionMainToDetail(10);
+                MainDirections.ActionMainToDetail action = MainDirections.actionMainToDetail(0);
                 NavHostFragment.findNavController(cur).navigate(action);
             }
         });
