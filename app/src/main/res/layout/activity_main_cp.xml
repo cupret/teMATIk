@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/toolbarid"
-        layout="@layout/toolbar"
+        layout="@layout/toolbar_cp"
         android:layout_centerHorizontal="true"/>
 
     <ScrollView
