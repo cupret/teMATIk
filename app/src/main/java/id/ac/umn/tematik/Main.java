@@ -70,8 +70,11 @@ public class Main extends Fragment {
             case R.id.main_menu_about:
                 NavHostFragment.findNavController(this).navigate(MainDirections.actionMainToAbout());
                 return true;
-                default:
-                    return super.onOptionsItemSelected(item);
+            case R.id.main_menu_update:
+                ApiServiceProvider.getInstance().update(getContext());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
     }

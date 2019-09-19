@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 import retrofit2.Call;
@@ -51,13 +51,18 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        ArrayList<Product> products = response.body();
+                        List<Product> products = response.body();
                         for(int x=0; x<products.size(); x++){
-                            Log.i("diamond", "Perhiasan nama: "+ products.get(x).getName());
-                            Log.i("diamond", "Perhiasan spesifikasi nama: "+ products.get(x).getDiamond_specification().get(0).getName());
                             LocalDatabase.getInstance(context).productQuery().insert(products.get(x));
                         }
 
+                        List<Product> db_products = LocalDatabase.getInstance(context).productQuery().getAllProduct();
+                        for(int x=0; x<db_products.size(); x++){
+                            Log.i("product", "Product ID: "+ db_products.get(x).getId());
+                            for(int y=0; y<db_products.get(x).getDiamond_specification().size(); y++) {
+                                Log.i("product_diamond", "Diamond Spec " + y + " Name: " + db_products.get(x).getDiamond_specification().get(y).getName());
+                            }
+                        }
                     } else {
                         Log.i("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
                     }
@@ -79,10 +84,14 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
-                        ArrayList<Promo> promos = response.body();
+                        List<Promo> promos = response.body();
                         for(int x=0; x<promos.size(); x++){
-                            Log.i("promo", "Promo nama: "+ promos.get(x).getName());
                             LocalDatabase.getInstance(context).promoQuery().insert(promos.get(x));
+                        }
+
+                        List<Promo> db_promos = LocalDatabase.getInstance(context).promoQuery().getAllPromo();
+                        for(int x=0; x<db_promos.size(); x++){
+                            Log.i("promo", "Promo ID: "+ db_promos.get(x).getId());
                         }
 
                     } else {
@@ -107,10 +116,15 @@ public class ApiServiceProvider{
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
+
+
                         ArrayList<Music> playList = response.body();
                         for(int x=0; x<playList.size(); x++){
-                            Log.i("playlist", "Music nama: "+ playList.get(x).getName());
                             LocalDatabase.getInstance(context).musicQuery().insert(playList.get(x));
+                        }
+                        List<Music> db_playList = LocalDatabase.getInstance(context).musicQuery().getAllMusic();
+                        for(int x=0; x<db_playList.size(); x++){
+                            Log.i("playlist", "Music ID: "+ db_playList.get(x).getId());
                         }
 
                     } else {
