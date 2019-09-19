@@ -3,13 +3,14 @@ package id.ac.umn.tematik;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
 
 @Dao
 public interface ProductQuery {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insert(Product product);
 
     @Query("SELECT * FROM product")
