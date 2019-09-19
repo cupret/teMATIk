@@ -19,17 +19,72 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-		android:id="@+id/textView"
-		android:layout_width="wrap_content"
+	<ScrollView
+		android:id="@+id/scrollviewid"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
-		android:text="About"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+		app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_marginVertical="10dp">
+
+			<ImageView
+				android:id="@+id/image1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:src="@drawable/jewerly1" />
+
+			<TextView
+				android:id="@+id/judulid"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="10dp"
+				android:text="Nama Company"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="25sp"
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/aboutusid"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="10dp"
+				android:text="About Us"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
+
+			<TextView
+				android:id="@+id/paragraphid"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:text="@string/description_text"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+
+			<TextView
+				android:id="@+id/contactusid"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="10dp"
+				android:text="Contact Us"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
+
+			<TextView
+				android:id="@+id/paragraph2id"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:text="@string/contact_us"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		</LinearLayout>
+
+	</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
