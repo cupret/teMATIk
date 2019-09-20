@@ -19,18 +19,83 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<Button
-		android:id="@+id/button"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
-		android:text="Button"
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_marginBottom="50dp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+		app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/fragment_main_list"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:scrollbars="vertical"
+			tools:itemCount="3"
+			tools:listitem="@layout/promo_list" />
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:orientation="vertical"
+		app:layout_constraintBottom_toBottomOf="parent">
+
+		<ImageView
+			android:id="@+id/imageView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:srcCompat="@color/darkPlaylist" />
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:orientation="horizontal">
+
+			<ImageButton
+				android:id="@+id/fragment_main_prev"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_marginStart="25dp"
+				android:backgroundTint="@android:color/transparent"
+				android:scaleType="centerInside"
+				app:srcCompat="@android:drawable/ic_media_previous" />
+
+			<ImageButton
+				android:id="@+id/fragment_main_playpause"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="10dp"
+				android:layout_toEndOf="@+id/fragment_main_prev"
+				android:background="@android:drawable/btn_default"
+				android:backgroundTint="@android:color/transparent"
+				android:cropToPadding="false"
+				android:scaleType="centerInside"
+				app:srcCompat="@android:drawable/ic_media_play" />
+
+			<ImageButton
+				android:id="@+id/fragment_main_playpause2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="10dp"
+				android:layout_toEndOf="@+id/fragment_main_playpause"
+				android:background="@android:drawable/btn_default"
+				android:backgroundTint="@android:color/transparent"
+				android:scaleType="centerInside"
+				app:srcCompat="@android:drawable/ic_media_next" />
+
+			<ImageButton
+				android:id="@+id/fragment_main_playpause3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentEnd="true"
+				android:layout_marginEnd="25dp"
+				android:background="@android:drawable/btn_default"
+				android:backgroundTint="@android:color/transparent"
+				android:scaleType="centerInside"
+				app:srcCompat="@android:drawable/arrow_up_float" />
+		</RelativeLayout>
+	</RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

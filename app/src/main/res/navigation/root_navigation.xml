@@ -11,7 +11,7 @@
 		android:label="fragment_main"
 		tools:layout="@layout/fragment_main">
 		<action
-			android:id="@+id/action_main_to_detail"
+			android:id="@+id/action_main_to_detail_promo"
 			app:destination="@+id/detail_promo"
 			app:enterAnim="@anim/nav_default_enter_anim"
 			app:popExitAnim="@anim/nav_default_exit_anim"

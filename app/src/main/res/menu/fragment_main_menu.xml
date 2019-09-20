@@ -6,4 +6,10 @@
 		android:id="@+id/main_menu_about"
 		android:title="Company Profile"
 		app:showAsAction="ifRoom" />
+
+	<item
+		android:id="@+id/main_menu_update"
+		android:title="Update"
+		app:showAsAction="ifRoom" />
+
 </menu>

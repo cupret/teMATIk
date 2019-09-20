@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,11 +18,14 @@ import java.util.List;
 
 public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.PromoListView> {
     List<Promo> promos = new ArrayList<Promo>();
+    private NavController navController;
 
-    public PromoListAdapter(){}
+    public PromoListAdapter(NavController navController){
+        this.navController = navController;
+    }
 
     public void SetData(List<Promo> promos){
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new PromoDiffUtil(this.promos, promos), true);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new PromoDiffUtil(this.promos, promos), false);
         this.promos = promos;
         result.dispatchUpdatesTo(this);
     }
@@ -37,7 +41,7 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
     public void onBindViewHolder(@NonNull PromoListView holder, int position) {
         Log.d("DEBUG", "Normal Bind Promo "+position);
         Promo promo = promos.get(position);
-        holder.bind(promo.getName(), promo.getDescription(), promo.getDate(), promo.getImages_url().get(0));
+        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), promo.getDate(), promo.getImages_url().get(0));
     }
 
     @Override
@@ -46,7 +50,7 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
         String name = promo.getName();
         String date = promo.getDate();
         String desc = promo.getDescription();
-        String img = promo.getImages_url().get(0);
+        String img = promo.getImages_url() != null ? promo.getImages_url().get(0) : "";
         if(!payloads.isEmpty()){
             Bundle payload = (Bundle) payloads.get(0);
             if(payload.containsKey(PromoDiffUtil.NAME)){
@@ -66,27 +70,35 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             }
         }
 
-        holder.bind(name, date, desc, img);
+        holder.bind(promo.getId(), name, date, desc, img);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return promos.size();
     }
 
     class PromoListView extends RecyclerView.ViewHolder{
+        View view;
         TextView nameText, descText, dateText;
         ImageView promoImg;
 
         public PromoListView(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             nameText = itemView.findViewById(R.id.promo_list_title);
             dateText = itemView.findViewById(R.id.promo_list_date);
             descText = itemView.findViewById(R.id.promo_list_desc);
             promoImg = itemView.findViewById(R.id.promo_list_img);
         }
 
-        public void bind(String name, String date, String desc, String img){
+        public void bind(final Integer id, String name, String date, String desc, String img){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navController.navigate(MainDirections.actionMainToDetailPromo(id));
+                }
+            });
             nameText.setText(name);
             dateText.setText(date);
             descText.setText(desc);

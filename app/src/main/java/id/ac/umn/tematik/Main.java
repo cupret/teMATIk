@@ -7,12 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,9 +28,10 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class Main extends Fragment {
-    RecyclerView promoList;
-    PromoListAdapter promoListAdapter;
-    LinearLayoutManager layoutManager;
+    private RecyclerView promoList;
+    private PromoListAdapter promoListAdapter;
+    private LinearLayoutManager layoutManager;
+    private NavController navController;
 
     public Main() {
         // Required empty public constructor
@@ -51,16 +53,23 @@ public class Main extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setActionBar(toolbar);
 
+        // set navController
+        navController =  NavHostFragment.findNavController(this);
+
         // init recycle list
         promoList = view.findViewById(R.id.fragment_main_list);
         layoutManager = new LinearLayoutManager(getContext());
-        promoListAdapter = new PromoListAdapter();
+        promoListAdapter = new PromoListAdapter(navController);
         LocalDatabase.getInstance(getContext()).promoQuery().getAllLiveDataPromo().observe(this, new Observer<List<Promo>>() {
-             @Override
-             public void onChanged(List<Promo> promos) {
+            @Override
+            public void onChanged(List<Promo> promos) {
+                Log.d("DEBUG", "Promo list updated");
+                for (Promo promo: promos) {
+                    Log.d("DEBUG", "Promolist onchanged: "+promo.getId());
+                }
                 promoListAdapter.SetData(promos);
                 promoListAdapter.notifyDataSetChanged();
-             }
+            }
         });
 
         promoList.setLayoutManager(layoutManager);
@@ -80,10 +89,13 @@ public class Main extends Fragment {
                 getActivity().onBackPressed();
                 return true;
             case R.id.main_menu_about:
-                NavHostFragment.findNavController(this).navigate(MainDirections.actionMainToAbout());
+                navController.navigate(MainDirections.actionMainToAbout());
                 return true;
-                default:
-                    return super.onOptionsItemSelected(item);
+            case R.id.main_menu_update:
+                ApiServiceProvider.getInstance().update(getContext());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
     }
