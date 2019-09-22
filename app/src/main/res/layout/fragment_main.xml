@@ -20,10 +20,12 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<RelativeLayout
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="50dp"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="@id/guideline2"
+		app:layout_constraintStart_toStartOf="@id/guideline"
 		app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 		<androidx.recyclerview.widget.RecyclerView
@@ -47,55 +49,136 @@
 			android:layout_height="match_parent"
 			app:srcCompat="@color/darkPlaylist" />
 
-		<RelativeLayout
+		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="50dp"
-			android:orientation="horizontal">
+			android:layout_height="50dp">
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.35" />
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.05" />
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.95" />
 
 			<ImageButton
 				android:id="@+id/fragment_main_prev"
+				style="@style/Widget.AppCompat.ImageButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentStart="true"
-				android:layout_marginStart="25dp"
+				android:layout_marginStart="16dp"
+				android:adjustViewBounds="true"
+				android:background="@android:drawable/screen_background_light_transparent"
 				android:backgroundTint="@android:color/transparent"
-				android:scaleType="centerInside"
+				android:scaleType="center"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/fragment_main_playpause"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toStartOf="@id/guideline3"
+				app:layout_constraintTop_toTopOf="parent"
 				app:srcCompat="@android:drawable/ic_media_previous" />
 
 			<ImageButton
 				android:id="@+id/fragment_main_playpause"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="10dp"
+				android:layout_marginStart="8dp"
 				android:layout_toEndOf="@+id/fragment_main_prev"
-				android:background="@android:drawable/btn_default"
+				android:adjustViewBounds="true"
+				android:background="@android:drawable/screen_background_light_transparent"
 				android:backgroundTint="@android:color/transparent"
 				android:cropToPadding="false"
 				android:scaleType="centerInside"
+				app:layout_constraintBottom_toBottomOf="@+id/fragment_main_prev"
+				app:layout_constraintEnd_toStartOf="@+id/fragment_main_next"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toEndOf="@+id/fragment_main_prev"
+				app:layout_constraintTop_toTopOf="@+id/fragment_main_prev"
 				app:srcCompat="@android:drawable/ic_media_play" />
 
 			<ImageButton
-				android:id="@+id/fragment_main_playpause2"
+				android:id="@+id/fragment_main_next"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="10dp"
+				android:layout_marginEnd="8dp"
 				android:layout_toEndOf="@+id/fragment_main_playpause"
-				android:background="@android:drawable/btn_default"
+				android:adjustViewBounds="true"
+				android:background="@android:drawable/screen_background_light_transparent"
 				android:backgroundTint="@android:color/transparent"
 				android:scaleType="centerInside"
+				app:layout_constraintBottom_toBottomOf="@+id/fragment_main_playpause"
+				app:layout_constraintEnd_toStartOf="@id/guideline5"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toEndOf="@+id/fragment_main_playpause"
+				app:layout_constraintTop_toTopOf="@+id/fragment_main_playpause"
 				app:srcCompat="@android:drawable/ic_media_next" />
 
+			<SeekBar
+				android:id="@+id/seekBar"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="8dp"
+				android:max="2"
+				android:progress="1"
+				android:progressDrawable="@android:drawable/progress_horizontal"
+				android:progressTint="@color/white"
+				android:secondaryProgressTint="@color/colorAccent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/guideline4"
+				app:layout_constraintStart_toStartOf="@+id/guideline5"
+				app:layout_constraintTop_toTopOf="parent" />
+
 			<ImageButton
-				android:id="@+id/fragment_main_playpause3"
+				android:id="@+id/fragment_main_openplaylist"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentEnd="true"
-				android:layout_marginEnd="25dp"
-				android:background="@android:drawable/btn_default"
+				android:adjustViewBounds="true"
+				android:background="@android:drawable/screen_background_light_transparent"
 				android:backgroundTint="@android:color/transparent"
 				android:scaleType="centerInside"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="@+id/guideline4"
+				app:layout_constraintTop_toTopOf="parent"
 				app:srcCompat="@android:drawable/arrow_up_float" />
-		</RelativeLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
 	</RelativeLayout>
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.15" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.85" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/fragment_main_playlistcontrol"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

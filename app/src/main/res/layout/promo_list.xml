@@ -12,7 +12,7 @@
 	app:contentPaddingLeft="10dp"
 	app:contentPaddingRight="10dp"
 	app:contentPaddingTop="5dp"
-	android:layout_marginBottom="20dp">
+	android:layout_marginVertical="10dp">
 
 	<RelativeLayout
 		android:id="@+id/promo_list_root"

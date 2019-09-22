@@ -13,6 +13,8 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +104,8 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             nameText.setText(name);
             dateText.setText(date);
             descText.setText(desc);
-
+            if(!img.isEmpty())
+                Picasso.get().load(img).error(android.R.color.white).into(promoImg);
         }
     }
 }
