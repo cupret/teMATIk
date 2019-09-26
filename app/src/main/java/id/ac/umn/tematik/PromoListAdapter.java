@@ -43,14 +43,14 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
     public void onBindViewHolder(@NonNull PromoListView holder, int position) {
         Log.d("DEBUG", "Normal Bind Promo "+position);
         Promo promo = promos.get(position);
-        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), promo.getDate(), promo.getImages_url().get(0));
+        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), promo.getStart_date(), promo.getImages_url().get(0));
     }
 
     @Override
     public void onBindViewHolder(@NonNull PromoListView holder, int position, @NonNull List<Object> payloads) {
         Promo promo = promos.get(position);
         String name = promo.getName();
-        String date = promo.getDate();
+        String date = promo.getStart_date();
         String desc = promo.getDescription();
         String img = promo.getImages_url() != null ? promo.getImages_url().get(0) : "";
         if(!payloads.isEmpty()){

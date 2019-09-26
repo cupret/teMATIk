@@ -10,18 +10,18 @@ import java.util.ArrayList;
 
 public class SpesifikasiBerlianConverter {
     @TypeConverter
-    public String fromSpesifikasiBerlian(ArrayList<Product.Spesifikasi_berlian> spesifikasiBerlian){
+    public String fromSpesifikasiBerlian(ArrayList<Product.DiamondSpecification> spesifikasiBerlian){
         if(spesifikasiBerlian == null) return null;
         Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<Product.Spesifikasi_berlian>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Product.DiamondSpecification>>(){}.getType();
         return gson.toJson(spesifikasiBerlian, type);
     }
 
     @TypeConverter
-    public ArrayList<Product.Spesifikasi_berlian> toSpesifikasiBerlian(String spesifikasiBerlian){
+    public ArrayList<Product.DiamondSpecification> toSpesifikasiBerlian(String spesifikasiBerlian){
         if(spesifikasiBerlian == null) return null;
         Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<Product.Spesifikasi_berlian>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Product.DiamondSpecification>>(){}.getType();
         return gson.fromJson(spesifikasiBerlian, type);
     }
 }

@@ -45,7 +45,7 @@ public class PromoDiffUtil extends DiffUtil.Callback {
         Boolean isSame = oldList.get(oldItemPosition).getName().compareTo(newList.get(newItemPosition).getName()) == 0
                 || oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) == 0
                 || oldList.get(oldItemPosition).getDescription().compareTo(newList.get(newItemPosition).getDescription()) == 0
-                || oldList.get(oldItemPosition).getDate().compareTo(newList.get(newItemPosition).getDate()) == 0;
+                || oldList.get(oldItemPosition).getStart_date().compareTo(newList.get(newItemPosition).getStart_date()) == 0;
         Log.d("DEBUG", "areContentsTheSame: " + isSame.toString());
         return isSame;
     }
@@ -57,8 +57,8 @@ public class PromoDiffUtil extends DiffUtil.Callback {
         if(oldList.get(oldItemPosition).getName().compareTo(newList.get(newItemPosition).getName()) != 0)
             bundle.putString(NAME, newList.get(newItemPosition).getName());
 
-        if(oldList.get(oldItemPosition).getDate().compareTo(newList.get(newItemPosition).getDate()) != 0)
-            bundle.putString(DATE, newList.get(newItemPosition).getDate());
+        if(oldList.get(oldItemPosition).getStart_date().compareTo(newList.get(newItemPosition).getStart_date()) != 0)
+            bundle.putString(DATE, newList.get(newItemPosition).getStart_date());
 
         if(oldList.get(oldItemPosition).getDescription().compareTo(newList.get(newItemPosition).getDescription()) != 0)
             bundle.putString(DESCRIPTION, newList.get(newItemPosition).getDescription());

@@ -97,7 +97,7 @@ public class DetailPromo extends Fragment {
             super.onPostExecute(promo);
 
             name.setText(promo.getName());
-            date.setText(promo.getDate());
+            date.setText(promo.getStart_date()+"-"+promo.getEnd_date());
             desc.setText(promo.getDescription());
             for(int i=0;i<promo.getImages_url().size();i++) new fetchImage().execute(promo.getImages_url().get(i));
         }

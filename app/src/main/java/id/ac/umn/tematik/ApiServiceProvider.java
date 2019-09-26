@@ -59,8 +59,12 @@ public class ApiServiceProvider{
                         List<Product> db_products = LocalDatabase.getInstance(context).productQuery().getAllProduct();
                         for(int x=0; x<db_products.size(); x++){
                             Log.i("product", "Product ID: "+ db_products.get(x).getId());
+                            Log.i("product", "Product color: "+ db_products.get(x).getColor());
                             for(int y=0; y<db_products.get(x).getDiamond_specification().size(); y++) {
-                                Log.i("product_diamond", "Diamond Spec " + y + " Name: " + db_products.get(x).getDiamond_specification().get(y).getName());
+                                Log.i("product_diamond", "Diamond Spec " + y + " Type: " + db_products.get(x).getDiamond_specification().get(y).getGemType());
+                                Log.i("product_diamond", "Diamond Spec " + y + " eight: " + db_products.get(x).getDiamond_specification().get(y).getCarat_weight());
+                                Log.i("product_diamond", "Diamond Spec " + y + " rodhium: " + db_products.get(x).getDiamond_specification().get(y).isRodhium_surface());
+
                             }
                         }
                     } else {
@@ -92,6 +96,8 @@ public class ApiServiceProvider{
                         List<Promo> db_promos = LocalDatabase.getInstance(context).promoQuery().getAllPromo();
                         for(int x=0; x<db_promos.size(); x++){
                             Log.i("promo", "Promo ID: "+ db_promos.get(x).getId());
+                            Log.i("promo", "Promo start: "+ db_promos.get(x).getStart_date());
+                            Log.i("promo", "Promo end: "+ db_promos.get(x).getEnd_date());
                         }
 
                     } else {
@@ -125,6 +131,8 @@ public class ApiServiceProvider{
                         List<Music> db_playList = LocalDatabase.getInstance(context).musicQuery().getAllMusic();
                         for(int x=0; x<db_playList.size(); x++){
                             Log.i("playlist", "Music ID: "+ db_playList.get(x).getId());
+                            Log.i("playlist", "Music start: "+ db_playList.get(x).getStart_date());
+                            Log.i("playlist", "Music end: "+ db_playList.get(x).getEnd_date());
                         }
 
                     } else {
