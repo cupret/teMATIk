@@ -20,6 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
 
 import java.util.List;
 
@@ -32,7 +34,11 @@ public class Main extends Fragment {
     private PromoListAdapter promoListAdapter;
     private LinearLayoutManager layoutManager;
     private NavController navController;
+
     private MusicPlayer musicPlayer;
+    private Thread thr;
+    private SeekBar bar;
+    private boolean barMove;
 
     public Main() {
         // Required empty public constructor
@@ -78,8 +84,70 @@ public class Main extends Fragment {
         promoList.setAdapter(promoListAdapter);
 
         // nyalain media player
-        if(musicPlayer == null)musicPlayer = new MusicPlayer(view,getContext());
-
+        ImageButton play = view.findViewById(R.id.fragment_main_playpause);
+        ImageButton next = view.findViewById(R.id.fragment_main_next);
+        ImageButton prev = view.findViewById(R.id.fragment_main_prev);
+        if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicPlayer.mpPlay();
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicPlayer.mpNext();
+                bar.setMax(musicPlayer.mp.getDuration());
+            }
+        });
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicPlayer.mpPrev();
+                bar.setMax(musicPlayer.mp.getDuration());
+            }
+        });
+        thr=new Thread(){
+            @Override
+            public void run() {
+                int totalDuration = musicPlayer.mp.getDuration();
+                int currentPosition = 0;
+                bar.setMax(totalDuration);
+                while (currentPosition < totalDuration) {
+                    try {
+                        sleep(1000);
+                        if(!barMove){
+                            currentPosition = musicPlayer.mp.getCurrentPosition();
+                            bar.setProgress(currentPosition);
+                        }
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thr.start();
+        bar = view.findViewById(R.id.seekBar);
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+                musicPlayer.mpSeek(arg0.getProgress());
+                barMove = false;
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+                barMove = true;
+            }
+            @Override
+            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+                // TODO Auto-generated method stub
+//                if(barMove)musicPlayer.mpSeek(arg0.getProgress());
+            }
+        });
 
     }
 

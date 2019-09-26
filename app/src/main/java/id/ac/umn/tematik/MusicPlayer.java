@@ -22,13 +22,11 @@ public class MusicPlayer {
     private View view;
     public String[] items;
     public int playIndex;
-
-    Button play,next,prev;
-
-    SeekBar bar;
+    public boolean isPlay;
 
     public MusicPlayer(View view, Context context){
         Log.e("asd", "hai2");
+        isPlay = false;
         this.ctx = context;
         this.view = view;
         String[] str = {"weakboi.mp3", "strongboi.mp3"};
@@ -37,8 +35,6 @@ public class MusicPlayer {
         DownloadSongs(url, str);
         Log.e("asd", "hai6");
         playIndex = 0;
-
-//        play = view.findViewById(R.id.fragment_main_playpause);
 
 
         Log.e("asd", "hai7");
@@ -55,6 +51,13 @@ public class MusicPlayer {
         if(mySongs.size() > 0){
             mp = MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(0).toString()));
             mp.start();
+            isPlay = true;
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mpNext();
+                }
+            });
         }
     }
 
@@ -67,8 +70,14 @@ public class MusicPlayer {
         }
     }
     void mpPlay(){
-        mp.start();
-        bar.setMax(mp.getDuration());
+        if(isPlay) {
+            mp.pause();
+            isPlay=false;
+        }
+        else{
+            mp.start();
+            isPlay=true;
+        }
     }
     void mpPause(){
         mp.pause();
@@ -80,6 +89,7 @@ public class MusicPlayer {
             playIndex = 0;
         }
         mp =  MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(playIndex).toString()));
+        isPlay=false;
         mpPlay();
     }
     void mpPrev(){
@@ -91,6 +101,7 @@ public class MusicPlayer {
             playIndex--;
         }
         mp =  MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(playIndex).toString()));
+        isPlay=false;
         mpPlay();
     }
 
@@ -190,6 +201,9 @@ public class MusicPlayer {
     public String mpToName(String name){
         if(name.endsWith(".mp3"))return name.replace(".mp3","");
         else return name;
+    }
+    void mpSeek(int prog){
+        mp.seekTo(prog);
     }
     public void deleteFiles(){
         File[] files = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music/").listFiles();
