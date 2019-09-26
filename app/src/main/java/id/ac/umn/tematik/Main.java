@@ -32,6 +32,7 @@ public class Main extends Fragment {
     private PromoListAdapter promoListAdapter;
     private LinearLayoutManager layoutManager;
     private NavController navController;
+    private MusicPlayer musicPlayer;
 
     public Main() {
         // Required empty public constructor
@@ -47,6 +48,7 @@ public class Main extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.e("asd", "hai");
 
         // set toolbar
         setHasOptionsMenu(true);
@@ -74,6 +76,11 @@ public class Main extends Fragment {
 
         promoList.setLayoutManager(layoutManager);
         promoList.setAdapter(promoListAdapter);
+
+        // nyalain media player
+        if(musicPlayer == null)musicPlayer = new MusicPlayer(view,getContext());
+
+
     }
 
     @Override
