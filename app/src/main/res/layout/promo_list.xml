@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/promo_list"
+	android:id="@+id/about"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	app:cardBackgroundColor="#DFDFDF"
+	android:layout_marginVertical="10dp"
+	app:cardBackgroundColor="@color/backgroundMain"
 	app:cardCornerRadius="10dp"
-	app:cardElevation="10dp"
+	app:cardElevation="15dp"
 	app:cardUseCompatPadding="false"
 	app:contentPaddingBottom="5dp"
 	app:contentPaddingLeft="10dp"
 	app:contentPaddingRight="10dp"
-	app:contentPaddingTop="5dp"
-	android:layout_marginVertical="10dp">
+	app:contentPaddingTop="5dp">
 
 	<RelativeLayout
 		android:id="@+id/promo_list_root"
@@ -21,7 +21,7 @@
 		android:orientation="vertical">
 
 		<RelativeLayout
-			android:id="@+id/promo_list_titlendate"
+			android:id="@+id/detail_promo_titlendate"
 			android:layout_width="match_parent"
 			android:layout_height="50dp"
 			android:orientation="horizontal">
@@ -51,36 +51,29 @@
 				android:textSize="30sp" />
 		</RelativeLayout>
 
-		<RelativeLayout
-			android:id="@+id/promo_list_img_root"
+		<com.synnapps.carouselview.CarouselView
+			android:id="@+id/promo_list_img"
 			android:layout_width="match_parent"
 			android:layout_height="300dp"
-			android:layout_below="@id/promo_list_titlendate"
-			android:orientation="horizontal">
+			android:layout_below="@id/detail_promo_titlendate"
+			app:fillColor="@color/colorPrimary"
+			app:pageColor="#00000000"
+			app:slideInterval="5000"
+			app:strokeColor="@color/colorAccent"
+			app:strokeWidth="1dp"
+			app:radius="5dp"/>
 
-			<ImageView
-				android:id="@+id/promo_list_img"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				app:srcCompat="@android:color/background_light" />
-		</RelativeLayout>
-
-		<RelativeLayout
-			android:id="@+id/promo_list_desc_root"
+		<TextView
+			android:id="@+id/promo_list_desc"
 			android:layout_width="match_parent"
-			android:layout_height="125dp"
-			android:layout_below="@id/promo_list_img_root"
-			android:orientation="horizontal">
-
-			<TextView
-				android:id="@+id/promo_list_desc"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:lineSpacingExtra="8sp"
-				android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
-				android:textColor="@android:color/black"
-				android:textSize="20sp" />
-		</RelativeLayout>
+			android:layout_height="wrap_content"
+			android:layout_below="@id/promo_list_img"
+			android:ellipsize="end"
+			android:lineSpacingExtra="8sp"
+			android:maxLines="2"
+			android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
+			android:textColor="@android:color/black"
+			android:textSize="20sp" />
 
 	</RelativeLayout>
 

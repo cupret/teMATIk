@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,7 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
     public void onBindViewHolder(@NonNull PromoListView holder, int position) {
         Log.d("DEBUG", "Normal Bind Promo "+position);
         Promo promo = promos.get(position);
-        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), promo.getStart_date(), promo.getImages_url().get(0));
+        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), promo.getStart_date(), promo.getImages_url());
     }
 
     @Override
@@ -52,7 +54,7 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
         String name = promo.getName();
         String date = promo.getStart_date();
         String desc = promo.getDescription();
-        String img = promo.getImages_url() != null ? promo.getImages_url().get(0) : "";
+        ArrayList<String> img = promo.getImages_url();
         if(!payloads.isEmpty()){
             Bundle payload = (Bundle) payloads.get(0);
             if(payload.containsKey(PromoDiffUtil.NAME)){
@@ -68,7 +70,7 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             }
 
             if(payload.containsKey(PromoDiffUtil.IMG)){
-                img = payload.getString(PromoDiffUtil.IMG);
+                img = payload.getStringArrayList(PromoDiffUtil.IMG);
             }
         }
 
@@ -83,7 +85,17 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
     class PromoListView extends RecyclerView.ViewHolder{
         View view;
         TextView nameText, descText, dateText;
-        ImageView promoImg;
+        ArrayList<String> urls;
+        CarouselView promoImg;
+
+        ImageListener imageListener = new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                String url = urls.get(position);
+                if(!url.isEmpty())
+                    Picasso.get().load(url).into(imageView);
+            }
+        };
 
         public PromoListView(@NonNull View itemView) {
             super(itemView);
@@ -92,9 +104,10 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             dateText = itemView.findViewById(R.id.promo_list_date);
             descText = itemView.findViewById(R.id.promo_list_desc);
             promoImg = itemView.findViewById(R.id.promo_list_img);
+            promoImg.setImageListener(imageListener);
         }
 
-        public void bind(final Integer id, String name, String date, String desc, String img){
+        public void bind(final Integer id, String name, String date, String desc, ArrayList<String> img){
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,8 +117,11 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             nameText.setText(name);
             dateText.setText(date);
             descText.setText(desc);
-            if(!img.isEmpty())
-                Picasso.get().load(img).error(android.R.color.white).into(promoImg);
+            urls = img;
+            if(!img.isEmpty()){
+                promoImg.setPageCount(img.size());
+            }
+
         }
     }
 }

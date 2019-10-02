@@ -13,6 +13,7 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:background="?attr/colorPrimary"
+		android:elevation="20dp"
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,7 @@
 			android:id="@+id/imageView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:srcCompat="@color/darkPlaylist" />
+			app:srcCompat="@color/colorAccent" />
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
@@ -58,7 +59,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:orientation="vertical"
-				app:layout_constraintGuide_percent="0.35" />
+				app:layout_constraintGuide_percent="0.45" />
 
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guideline3"
@@ -131,13 +132,15 @@
 				android:id="@+id/seekBar"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginEnd="8dp"
-				android:max="2"
-				android:progress="0"
-				android:progressDrawable="@android:drawable/progress_horizontal"
-				android:progressTint="@color/white"
-				android:secondaryProgressTint="@color/colorAccent"
+				android:max="100"
+				android:progress="20"
+				android:minHeight="5dp"
+				android:maxHeight="10dp"
+				android:progressDrawable="@drawable/custom_slider"
+				android:progressTint="@color/sliderForeground"
+				android:secondaryProgressTint="@color/backgroundDark"
+				android:splitTrack="false"
+				android:thumb="@drawable/custom_slider_thumb"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toStartOf="@+id/guideline4"
 				app:layout_constraintStart_toStartOf="@+id/guideline5"
@@ -165,14 +168,14 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.15" />
+		app:layout_constraintGuide_percent="0.05" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/guideline2"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.85" />
+		app:layout_constraintGuide_percent="0.95" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/fragment_main_playlistcontrol"
