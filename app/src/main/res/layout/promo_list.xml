@@ -7,7 +7,7 @@
 	android:layout_marginVertical="10dp"
 	app:cardBackgroundColor="@color/backgroundMain"
 	app:cardCornerRadius="10dp"
-	app:cardElevation="15dp"
+	app:cardElevation="5dp"
 	app:cardUseCompatPadding="false"
 	app:contentPaddingBottom="5dp"
 	app:contentPaddingLeft="10dp"
@@ -58,10 +58,10 @@
 			android:layout_below="@id/detail_promo_titlendate"
 			app:fillColor="@color/colorPrimary"
 			app:pageColor="#00000000"
+			app:radius="5dp"
 			app:slideInterval="5000"
 			app:strokeColor="@color/colorAccent"
-			app:strokeWidth="1dp"
-			app:radius="5dp"/>
+			app:strokeWidth="1dp" />
 
 		<TextView
 			android:id="@+id/promo_list_desc"
