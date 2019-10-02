@@ -19,6 +19,12 @@ public interface ProductQuery {
     @Query("SELECT * FROM product")
     public LiveData<List<Product>> getAllLiveDataProduct();
 
+    @Query("SELECT * FROM product WHERE id = :id")
+    public Product getProduct(int id);
+
+    @Query("SELECT * FROM product WHERE id = :id")
+    public LiveData<Product> getLiveDataProduct(int id);
+
     @Query("DELETE FROM product")
     public void deleteAllProduct();
 }

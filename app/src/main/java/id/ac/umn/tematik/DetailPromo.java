@@ -1,8 +1,5 @@
 package id.ac.umn.tematik;
 
-
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,35 +7,37 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DetailPromo extends Fragment {
     private int promoId;
-    private Promo promo;
+
+    private ProductListAdapter productListAdapter;
+    private GridLayoutManager layoutManager;
+    private NavController navController;
 
     TextView name;
     TextView date;
     TextView desc;
-    LinearLayout imageLayout;
+    VideoView vid;
+    RecyclerView imgs;
 
     public DetailPromo() {
         // Required empty public constructor
@@ -61,16 +60,41 @@ public class DetailPromo extends Fragment {
         ((MainActivity)getActivity()).setActionBar(toolbar);
         ((MainActivity)getActivity()).setHomeButton(android.R.drawable.ic_delete);
 
-        name = view.findViewById(R.id.promo_name);
-        date = view.findViewById(R.id.promo_date);
-        desc = view.findViewById(R.id.promo_desc);
-        imageLayout = (LinearLayout) view.findViewById(R.id.promo_image_layout);
+        // set navController
+        navController =  NavHostFragment.findNavController(this);
+
+        // init views
+        name = view.findViewById(R.id.detail_promo_title);
+        date = view.findViewById(R.id.detail_promo_date);
+        desc = view.findViewById(R.id.detail_promo_desc);
+        vid = view.findViewById(R.id.detail_promo_vid);
+        imgs = view.findViewById(R.id.detail_promo_imgs);
+
+        // init recycle list
+        layoutManager = new GridLayoutManager(getContext(), 3);
+        productListAdapter = new ProductListAdapter(navController);
 
         // access promoId
         promoId = getArguments() != null ? DetailPromoArgs.fromBundle(getArguments()).getPromoId() : 0;
+        LocalDatabase.getInstance(getContext()).promoQuery().getLiveDataPromo(promoId).observe(this, new Observer<Promo>() {
+            @Override
+            public void onChanged(Promo promo) {
+                name.setText(promo.getName());
+                date.setText(promo.getStart_date() + " - " + promo.getEnd_date());
+                desc.setText(promo.getDescription());
 
-        new fetchPromo().execute(promoId);
+                ArrayList<Product> products = new ArrayList<>();
+                for(int id : promo.getProduct_list()){
+                    products.add(LocalDatabase.getInstance(getContext()).productQuery().getProduct(id));
+                }
 
+                productListAdapter.SetData(products);
+                productListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        imgs.setLayoutManager(layoutManager);
+        imgs.setAdapter(productListAdapter);
     }
 
     @Override
@@ -81,53 +105,6 @@ public class DetailPromo extends Fragment {
                 return  true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    class fetchPromo extends AsyncTask<Integer, Void, Promo>{
-
-        @Override
-        protected Promo doInBackground(Integer... promoId) {
-            promo = LocalDatabase.getInstance(getContext()).promoQuery().getPromo(promoId[0]);
-            return promo;
-        }
-
-        @Override
-        protected void onPostExecute(Promo promo) {
-            super.onPostExecute(promo);
-
-            name.setText(promo.getName());
-            date.setText(promo.getStart_date()+"-"+promo.getEnd_date());
-            desc.setText(promo.getDescription());
-            for(int i=0;i<promo.getImages_url().size();i++) new fetchImage().execute(promo.getImages_url().get(i));
-        }
-    }
-
-    class fetchImage extends AsyncTask<String, Void, Drawable>{
-
-        @Override
-        protected Drawable doInBackground(String... imgUrl) {
-            Drawable drawImage = null;
-            try{
-                InputStream imgContent = (InputStream) new URL(imgUrl[0]).getContent();
-                drawImage = Drawable.createFromStream(imgContent, "src");
-            } catch (MalformedURLException e) {
-                Log.e("MALFORMED", "MalformedURLException: " + e.getMessage());
-            } catch (IOException e) {
-                Log.e("IO", "IOException: " + e.getMessage());
-            }
-            return drawImage;
-        }
-
-        @Override
-        protected void onPostExecute(Drawable drawable) {
-            super.onPostExecute(drawable);
-
-            ImageView image = new ImageView(getContext());
-            image.setMaxHeight(128);
-            image.setMaxWidth(128);
-            image.setImageDrawable(drawable);
-            imageLayout.addView(image);
         }
     }
 }
