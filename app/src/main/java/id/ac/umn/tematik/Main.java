@@ -1,11 +1,16 @@
 package id.ac.umn.tematik;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
@@ -39,6 +44,7 @@ public class Main extends Fragment {
     private Thread thr;
     private SeekBar bar;
     private boolean barMove;
+    private final int PERMISSIONS_WRITE_STORAGE= 1;
 
     public Main() {
         // Required empty public constructor
@@ -83,71 +89,14 @@ public class Main extends Fragment {
         promoList.setLayoutManager(layoutManager);
         promoList.setAdapter(promoListAdapter);
 
-        // nyalain media player
-        ImageButton play = view.findViewById(R.id.fragment_main_playpause);
-        ImageButton next = view.findViewById(R.id.fragment_main_next);
-        ImageButton prev = view.findViewById(R.id.fragment_main_prev);
-        if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                musicPlayer.mpPlay();
-            }
-        });
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                musicPlayer.mpNext();
-                bar.setMax(musicPlayer.mp.getDuration());
-            }
-        });
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                musicPlayer.mpPrev();
-                bar.setMax(musicPlayer.mp.getDuration());
-            }
-        });
-        thr=new Thread(){
-            @Override
-            public void run() {
-                int totalDuration = musicPlayer.mp.getDuration();
-                int currentPosition = 0;
-                bar.setMax(totalDuration);
-                while (currentPosition < totalDuration) {
-                    try {
-                        sleep(1000);
-                        if(!barMove){
-                            currentPosition = musicPlayer.mp.getCurrentPosition();
-                            bar.setProgress(currentPosition);
-                        }
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        thr.start();
-        bar = view.findViewById(R.id.seekBar);
-        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onStopTrackingTouch(SeekBar arg0) {
-                // TODO Auto-generated method stub
-                musicPlayer.mpSeek(arg0.getProgress());
-                barMove = false;
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar arg0) {
-                // TODO Auto-generated method stub
-                barMove = true;
-            }
-            @Override
-            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-                // TODO Auto-generated method stub
-//                if(barMove)musicPlayer.mpSeek(arg0.getProgress());
-            }
-        });
+        //ask permission
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Log.e("asd", "req stroage granted bro2");
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_WRITE_STORAGE);
+        } else {
+            Log.e("asd", "stroage already granted bro2");
+            initMP();
+        }
 
     }
 
@@ -174,4 +123,101 @@ public class Main extends Fragment {
 
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_WRITE_STORAGE : {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("asd", "stroage granted bro2");
+                    initMP();
+                } else {
+                    Log.e("asd", "stroage not granted bro2");
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("EXIT", true);
+                    startActivity(intent);
+
+                    getActivity().finish();
+                }
+            }
+            return;
+        }
+    }
+
+    public void initMP(){
+        View view = getView();
+        // nyalain media player
+        ImageButton play = view.findViewById(R.id.fragment_main_playpause);
+        ImageButton next = view.findViewById(R.id.fragment_main_next);
+        ImageButton prev = view.findViewById(R.id.fragment_main_prev);
+
+        if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicPlayer.mpPlay();
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicPlayer.mpNext();
+                bar.setMax(musicPlayer.mp.getDuration());
+            }
+        });
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicPlayer.mpPrev();
+                bar.setMax(musicPlayer.mp.getDuration());
+            }
+        });
+
+        thr = new Thread(){
+            @Override
+            public void run() {
+                Log.e("asd", "haix1");
+                int totalDuration = musicPlayer.mp.getDuration();
+                int currentPosition = 0;
+                bar.setMax(totalDuration);
+                while (currentPosition < totalDuration) {
+                    try {
+                        sleep(1000);
+                        if(!barMove){
+                            currentPosition = musicPlayer.mp.getCurrentPosition();
+                            bar.setProgress(currentPosition);
+                        }
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thr.start();
+
+        bar = view.findViewById(R.id.seekBar);
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+                musicPlayer.mpSeek(arg0.getProgress());
+                barMove = false;
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+                barMove = true;
+            }
+            @Override
+            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+                // TODO Auto-generated method stub
+//                if(barMove)musicPlayer.mpSeek(arg0.getProgress());
+            }
+        });
+
+    }
+
 }
