@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="darkPlaylist">#353535</color>
+    <color name="colorPrimary">#F213A0</color>
+    <color name="colorPrimaryDark">#F213A0</color>
+    <color name="colorAccent">#A61D99</color>
+    <color name="backgroundLight">#FFDBF2</color>
+    <color name="backgroundMain">#FFC4E9</color>
+    <color name="backgroundDark">#7C2574</color>
+    <color name="sliderForeground">#D7078A</color>
+    <color name="sliderForegroundAlpha">#80D7078A</color>
     <color name="black">#000000</color>
-    <color name="white">#DF0A2E77</color>
+    <color name="white">#FFFFFF</color>
 </resources>
