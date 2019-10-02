@@ -45,14 +45,15 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
     public void onBindViewHolder(@NonNull PromoListView holder, int position) {
         Log.d("DEBUG", "Normal Bind Promo "+position);
         Promo promo = promos.get(position);
-        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), promo.getStart_date(), promo.getImages_url());
+        String date = promo.getStart_date() + " - " + promo.getEnd_date();
+        holder.bind(promo.getId(), promo.getName(), promo.getDescription(), date, promo.getImages_url());
     }
 
     @Override
     public void onBindViewHolder(@NonNull PromoListView holder, int position, @NonNull List<Object> payloads) {
         Promo promo = promos.get(position);
         String name = promo.getName();
-        String date = promo.getStart_date();
+        String date = promo.getStart_date() + " - " + promo.getEnd_date();
         String desc = promo.getDescription();
         ArrayList<String> img = promo.getImages_url();
         if(!payloads.isEmpty()){
@@ -118,10 +119,10 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             dateText.setText(date);
             descText.setText(desc);
             urls = img;
-            if(!img.isEmpty()){
+            if(img != null)
                 promoImg.setPageCount(img.size());
-            }
-
+            else
+                promoImg.setPageCount(0);
         }
     }
 }

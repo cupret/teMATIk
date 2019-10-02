@@ -48,18 +48,21 @@ public class PromoDiffUtil extends DiffUtil.Callback {
                 || oldList.get(oldItemPosition).getStart_date().compareTo(newList.get(newItemPosition).getStart_date()) == 0
                 || oldList.get(oldItemPosition).getEnd_date().compareTo(newList.get(newItemPosition).getEnd_date()) == 0;
 
-        if(isSame){
-            if(oldList.get(oldItemPosition).getImages_url().size() != newList.get(newItemPosition).getImages_url().size())
-                isSame = false;
-            else{
-                for(int i = 0; i < oldList.get(oldItemPosition).getImages_url().size(); i++){
-                    if(oldList.get(oldItemPosition).getImages_url().get(i).compareTo(newList.get(newItemPosition).getImages_url().get(i)) != 0){
-                        isSame = false;
-                        break;
+        if(oldList.get(oldItemPosition).getImages_url() != null && newList.get(newItemPosition).getImages_url() != null){
+            if(isSame){
+                if(oldList.get(oldItemPosition).getImages_url().size() != newList.get(newItemPosition).getImages_url().size())
+                    isSame = false;
+                else{
+                    for(int i = 0; i < oldList.get(oldItemPosition).getImages_url().size(); i++){
+                        if(oldList.get(oldItemPosition).getImages_url().get(i).compareTo(newList.get(newItemPosition).getImages_url().get(i)) != 0){
+                            isSame = false;
+                            break;
+                        }
                     }
                 }
             }
         }
+
         Log.d("DEBUG", "areContentsTheSame: " + isSame.toString());
         return isSame;
     }
@@ -80,13 +83,15 @@ public class PromoDiffUtil extends DiffUtil.Callback {
         if(oldList.get(oldItemPosition).getDescription().compareTo(newList.get(newItemPosition).getDescription()) != 0)
             bundle.putString(DESCRIPTION, newList.get(newItemPosition).getDescription());
 
-        if(oldList.get(oldItemPosition).getImages_url().size() != newList.get(newItemPosition).getImages_url().size())
-            bundle.putStringArrayList(IMG, newList.get(newItemPosition).getImages_url());
-        else{
-            for(int i = 0; i < oldList.get(oldItemPosition).getImages_url().size(); i++){
-                if(oldList.get(oldItemPosition).getImages_url().get(i).compareTo(newList.get(newItemPosition).getImages_url().get(i)) != 0){
-                    bundle.putStringArrayList(IMG, newList.get(newItemPosition).getImages_url());
-                    break;
+        if(oldList.get(oldItemPosition).getImages_url() != null && newList.get(newItemPosition).getImages_url() != null){
+            if(oldList.get(oldItemPosition).getImages_url().size() != newList.get(newItemPosition).getImages_url().size())
+                bundle.putStringArrayList(IMG, newList.get(newItemPosition).getImages_url());
+            else{
+                for(int i = 0; i < oldList.get(oldItemPosition).getImages_url().size(); i++){
+                    if(oldList.get(oldItemPosition).getImages_url().get(i).compareTo(newList.get(newItemPosition).getImages_url().get(i)) != 0){
+                        bundle.putStringArrayList(IMG, newList.get(newItemPosition).getImages_url());
+                        break;
+                    }
                 }
             }
         }
