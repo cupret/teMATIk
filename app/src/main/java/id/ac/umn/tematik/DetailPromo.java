@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,7 @@ import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,11 +37,29 @@ public class DetailPromo extends Fragment {
     private GridLayoutManager layoutManager;
     private NavController navController;
 
-    TextView name;
-    TextView date;
-    TextView desc;
-    VideoView vid;
-    RecyclerView imgs;
+    private SparseArray<LiveData<Product>> productsLiveData = new SparseArray<>(0);
+    private SparseArray<Product> products = new SparseArray<>(0);
+    private Observer<Product> productObserver = new Observer<Product>() {
+        @Override
+        public void onChanged(Product product) {
+            // assign value to products and notify productListAdapter
+            products.put(product.getId(), product);
+
+            ArrayList<Product> newProducts = new ArrayList<>();
+            for(int i=0; i<products.size(); i++){
+                newProducts.add(products.get(products.keyAt(i)));
+            }
+
+            productListAdapter.SetData(newProducts);
+            productListAdapter.notifyDataSetChanged();
+        }
+    };
+
+    private TextView name;
+    private TextView date;
+    private TextView desc;
+    private VideoView vid;
+    private RecyclerView imgs;
 
     public DetailPromo() {
         // Required empty public constructor
@@ -76,20 +98,24 @@ public class DetailPromo extends Fragment {
 
         // access promoId
         promoId = getArguments() != null ? DetailPromoArgs.fromBundle(getArguments()).getPromoId() : 0;
-        LocalDatabase.getInstance(getContext()).promoQuery().getLiveDataPromo(promoId).observe(this, new Observer<Promo>() {
+        final LifecycleOwner owner = this;
+        LocalDatabase.getInstance(getContext()).promoQuery().getLiveDataPromo(promoId).observe(owner, new Observer<Promo>() {
             @Override
             public void onChanged(Promo promo) {
                 name.setText(promo.getName());
                 date.setText(promo.getStart_date() + " - " + promo.getEnd_date());
                 desc.setText(promo.getDescription());
 
-                ArrayList<Product> products = new ArrayList<>();
-                for(int id : promo.getProduct_list()){
-                    products.add(LocalDatabase.getInstance(getContext()).productQuery().getProduct(id));
+                // update products livedata observer
+                for(int i=0; i<productsLiveData.size(); i++){
+                    productsLiveData.get(productsLiveData.keyAt(i)).removeObserver(productObserver);
                 }
-
-                productListAdapter.SetData(products);
-                productListAdapter.notifyDataSetChanged();
+                productsLiveData.clear();
+                for(int id : promo.getProduct_list()){
+                    LiveData<Product> liveData = LocalDatabase.getInstance(getContext()).productQuery().getLiveDataProduct(id);
+                    liveData.observe(owner, productObserver);
+                    productsLiveData.append(id, liveData);
+                }
             }
         });
 
