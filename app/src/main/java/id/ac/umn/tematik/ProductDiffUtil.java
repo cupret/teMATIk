@@ -38,7 +38,11 @@ public class ProductDiffUtil extends DiffUtil.Callback {
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        Boolean isSame = oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) == 0;
+        Boolean isSame = true;
+        if(oldList.get(oldItemPosition).getImages_url() != null && newList.get(newItemPosition).getImages_url() != null){
+            if(oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) != 0)
+                isSame = false;
+        }
         Log.d("DEBUG", "areContentsTheSame: " + isSame.toString());
         return isSame;
     }
@@ -47,8 +51,10 @@ public class ProductDiffUtil extends DiffUtil.Callback {
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
         Bundle bundle = new Bundle();
-        if(oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) != 0)
-            bundle.putString(IMG, newList.get(newItemPosition).getImages_url().get(0));
+        if(oldList.get(oldItemPosition).getImages_url() != null && newList.get(newItemPosition).getImages_url() != null){
+            if(oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) != 0)
+                bundle.putString(IMG, newList.get(newItemPosition).getImages_url().get(0));
+        }
 
         return bundle;
     }
