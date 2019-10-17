@@ -64,6 +64,9 @@ public class ApiServiceProvider{
                                 Log.i("product_diamond", "Diamond Spec " + y + " Type: " + db_products.get(x).getDiamond_specification().get(y).getGemType());
                                 Log.i("product_diamond", "Diamond Spec " + y + " eight: " + db_products.get(x).getDiamond_specification().get(y).getCarat_weight());
                             }
+                            for(int y=0; y<db_products.get(x).getTag_list().size(); y++) {
+                                Log.i("product_tag", "tag : " + db_products.get(x).getTag_list().get(y));
+                            }
                         }
                     } else {
                         Log.i("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();

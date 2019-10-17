@@ -19,6 +19,7 @@ public class Product {
     private String color; //color
     private boolean rodhium_surface; //pelapis besi
     private ArrayList<DiamondSpecification> diamond_specification;
+    private ArrayList<String>  tag_list;
 
     public Product(
             @NonNull Integer id,
@@ -30,7 +31,8 @@ public class Product {
             float weight_estimation,
             String color,
             boolean rodhium_surface,
-            ArrayList<DiamondSpecification> diamond_specification
+            ArrayList<DiamondSpecification> diamond_specification,
+            ArrayList<String> tag_list
     ){
         this.id = id;
         this.name = name;
@@ -42,6 +44,7 @@ public class Product {
         this.color = color;
         this.rodhium_surface = rodhium_surface;
         this.diamond_specification = diamond_specification;
+        this.tag_list = tag_list;
     }
 
     public Integer getId(){ return this.id; }
@@ -54,6 +57,7 @@ public class Product {
     public String getColor(){ return this.color; }
     public boolean isRodhium_surface(){ return this.rodhium_surface; }
     public ArrayList<DiamondSpecification> getDiamond_specification(){ return this.diamond_specification; }
+    public ArrayList<String> getTag_list(){ return this.tag_list; }
 
     public class DiamondSpecification{
         private String gem_type;

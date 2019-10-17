@@ -1,11 +1,14 @@
 package id.ac.umn.tematik;
 
+import android.util.SparseArray;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -24,6 +27,9 @@ public interface ProductQuery {
 
     @Query("SELECT * FROM product WHERE id = :id")
     public LiveData<Product> getLiveDataProduct(int id);
+
+    @Query("SELECT * FROM product WHERE :where")
+    public LiveData<List<Product>> fukYuRyan(String where);
 
     @Query("DELETE FROM product")
     public void deleteAllProduct();
