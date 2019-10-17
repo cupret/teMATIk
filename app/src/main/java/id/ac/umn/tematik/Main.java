@@ -179,14 +179,15 @@ public class Main extends Fragment {
             @Override
             public void run() {
                 Log.e("asd", "haix1");
-                int totalDuration = musicPlayer.mp.getDuration();
+                int totalDuration = 100;
+                if(musicPlayer.canPlay) totalDuration = musicPlayer.mp.getDuration();
                 int currentPosition = 0;
                 bar.setMax(totalDuration);
                 while (currentPosition < totalDuration) {
                     try {
                         sleep(1000);
                         if(!barMove){
-                            currentPosition = musicPlayer.mp.getCurrentPosition();
+                            if(musicPlayer.canPlay) currentPosition = musicPlayer.mp.getCurrentPosition();
                             bar.setProgress(currentPosition);
                         }
                     } catch (InterruptedException e) {
