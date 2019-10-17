@@ -63,8 +63,6 @@ public class ApiServiceProvider{
                             for(int y=0; y<db_products.get(x).getDiamond_specification().size(); y++) {
                                 Log.i("product_diamond", "Diamond Spec " + y + " Type: " + db_products.get(x).getDiamond_specification().get(y).getGemType());
                                 Log.i("product_diamond", "Diamond Spec " + y + " eight: " + db_products.get(x).getDiamond_specification().get(y).getCarat_weight());
-                                Log.i("product_diamond", "Diamond Spec " + y + " rodhium: " + db_products.get(x).getDiamond_specification().get(y).isRodhium_surface());
-
                             }
                         }
                     } else {
@@ -114,21 +112,21 @@ public class ApiServiceProvider{
     }
 
     private void loadPlayList(final Context context){
-        Call<ArrayList<Music>> call = apiService.loadPlayList();
-        call.enqueue(new Callback<ArrayList<Music>>() {
+        Call<ArrayList<PlayList>> call = apiService.loadPlayList();
+        call.enqueue(new Callback<ArrayList<PlayList>>() {
             @Override
-            public void onResponse(Call<ArrayList<Music>> call, Response<ArrayList<Music>> response) {
+            public void onResponse(Call<ArrayList<PlayList>> call, Response<ArrayList<PlayList>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.i("onSuccess", response.body().toString());
 
 
 
-                        ArrayList<Music> playList = response.body();
+                        ArrayList<PlayList> playList = response.body();
                         for(int x=0; x<playList.size(); x++){
-                            LocalDatabase.getInstance(context).musicQuery().insert(playList.get(x));
+                            LocalDatabase.getInstance(context).playListQuery().insert(playList.get(x));
                         }
-                        List<Music> db_playList = LocalDatabase.getInstance(context).musicQuery().getAllMusic();
+                        List<PlayList> db_playList = LocalDatabase.getInstance(context).playListQuery().getAllPlayList();
                         for(int x=0; x<db_playList.size(); x++){
                             Log.i("playlist", "Music ID: "+ db_playList.get(x).getId());
                             Log.i("playlist", "Music start: "+ db_playList.get(x).getStart_date());
@@ -142,7 +140,7 @@ public class ApiServiceProvider{
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Music>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<PlayList>> call, Throwable t) {
 
             }
         });

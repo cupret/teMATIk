@@ -11,6 +11,6 @@ public interface ApiService {
 
     @GET("promo.json") Call<ArrayList<Promo>> loadPromo();
 
-    @GET("playlist.json") Call<ArrayList<Music>> loadPlayList();
+    @GET("playlist.json") Call<ArrayList<PlayList>> loadPlayList();
 }
 

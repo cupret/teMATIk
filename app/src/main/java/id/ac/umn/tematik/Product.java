@@ -17,6 +17,7 @@ public class Product {
     private String description;
     private float weight_estimation;
     private String color; //color
+    private boolean rodhium_surface; //pelapis besi
     private ArrayList<DiamondSpecification> diamond_specification;
 
     public Product(
@@ -28,6 +29,7 @@ public class Product {
             String description,
             float weight_estimation,
             String color,
+            boolean rodhium_surface,
             ArrayList<DiamondSpecification> diamond_specification
     ){
         this.id = id;
@@ -38,6 +40,7 @@ public class Product {
         this.description = description;
         this.weight_estimation = weight_estimation;
         this.color = color;
+        this.rodhium_surface = rodhium_surface;
         this.diamond_specification = diamond_specification;
     }
 
@@ -49,6 +52,7 @@ public class Product {
     public String getDescription(){ return this.description; }
     public float getWeight_estimation(){ return this.weight_estimation; }
     public String getColor(){ return this.color; }
+    public boolean isRodhium_surface(){ return this.rodhium_surface; }
     public ArrayList<DiamondSpecification> getDiamond_specification(){ return this.diamond_specification; }
 
     public class DiamondSpecification{
@@ -56,17 +60,15 @@ public class Product {
         private String shape;
         private Integer quantity;
         private float carat_weight; // float
-        private boolean rodhium_surface; //rodhium
-        private boolean cut;
+        private String cut;
         private String color;
         private String clarity;
 
-        public DiamondSpecification(String gem_type, String shape, Integer quantity, float carat_weight, boolean rodhium_surface, boolean cut, String color, String clarity){
+        public DiamondSpecification(String gem_type, String shape, Integer quantity, float carat_weight, boolean rodhium_surface, String cut, String color, String clarity){
             this.gem_type = gem_type;
             this.shape = shape;
             this.quantity = quantity;
             this.carat_weight = carat_weight;
-            this.rodhium_surface = rodhium_surface;
             this.cut = cut;
             this.color = color;
             this.clarity = clarity;
@@ -76,8 +78,7 @@ public class Product {
         public String getShape(){ return this.shape; }
         public Integer getQuantity(){ return this.quantity; }
         public float getCarat_weight(){ return this.carat_weight; }
-        public boolean isRodhium_surface(){ return this.rodhium_surface; }
-        public boolean isCut(){ return this.cut; }
+        public String getCut(){ return this.cut; }
         public String getColor(){ return this.color; }
         public String getClarity(){ return this.clarity; }
     }
