@@ -93,8 +93,10 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 String url = urls.get(position);
-                if(!url.isEmpty())
+                if(!url.isEmpty()) {
+                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     Picasso.get().load(url).into(imageView);
+                }
             }
         };
 

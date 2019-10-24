@@ -31,10 +31,25 @@
 		<argument
 			android:name="promoId"
 			app:argType="integer" />
+		<action
+			android:id="@+id/action_detail_promo_to_detail_product"
+			app:destination="@id/detail_product"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:popExitAnim="@anim/nav_default_exit_anim"
+			app:popUpTo="@+id/detail_promo" />
 	</fragment>
 	<fragment
 		android:id="@+id/main_menu_about"
 		android:name="id.ac.umn.tematik.About"
 		android:label="fragment_about"
 		tools:layout="@layout/fragment_about" />
+	<fragment
+		android:id="@+id/detail_product"
+		android:name="id.ac.umn.tematik.DetailProduct"
+		android:label="fragment_detail_product"
+		tools:layout="@layout/fragment_detail_product">
+		<argument
+			android:name="productCode"
+			app:argType="string" />
+	</fragment>
 </navigation>

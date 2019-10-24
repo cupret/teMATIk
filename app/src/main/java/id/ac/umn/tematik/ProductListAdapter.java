@@ -78,7 +78,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //navController.navigate(MainDirections.actionMainToDetailPromo(id));
+                    navController.navigate(DetailPromoDirections.actionDetailPromoToDetailProduct(code));
                 }
             });
             if(!img.isEmpty())
