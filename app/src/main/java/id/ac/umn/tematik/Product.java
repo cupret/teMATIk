@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 @Entity(tableName = "product")
 public class Product {
-    @PrimaryKey
-    private Integer id;
+    @PrimaryKey @NonNull
+    private String code;
     private String name;
     private ArrayList<String> images_url;
     private String video_url;
@@ -17,12 +17,10 @@ public class Product {
     private String description;
     private float weight_estimation;
     private String color; //color
-    private boolean rodhium_surface; //pelapis besi
     private ArrayList<DiamondSpecification> diamond_specification;
-    private ArrayList<String>  tag_list;
 
     public Product(
-            @NonNull Integer id,
+            @NonNull String code,
             String name,
             ArrayList<String> images_url,
             String video_url,
@@ -30,11 +28,9 @@ public class Product {
             String description,
             float weight_estimation,
             String color,
-            boolean rodhium_surface,
-            ArrayList<DiamondSpecification> diamond_specification,
-            ArrayList<String> tag_list
+            ArrayList<DiamondSpecification> diamond_specification
     ){
-        this.id = id;
+        this.code = code;
         this.name = name;
         this.images_url = images_url;
         this.video_url = video_url;
@@ -42,12 +38,10 @@ public class Product {
         this.description = description;
         this.weight_estimation = weight_estimation;
         this.color = color;
-        this.rodhium_surface = rodhium_surface;
         this.diamond_specification = diamond_specification;
-        this.tag_list = tag_list;
     }
 
-    public Integer getId(){ return this.id; }
+    public String getCode(){ return this.code; }
     public String getName(){ return this.name; }
     public Integer getPrice(){ return this.price; }
     public ArrayList<String> getImages_url(){ return this.images_url; }
@@ -55,9 +49,7 @@ public class Product {
     public String getDescription(){ return this.description; }
     public float getWeight_estimation(){ return this.weight_estimation; }
     public String getColor(){ return this.color; }
-    public boolean isRodhium_surface(){ return this.rodhium_surface; }
     public ArrayList<DiamondSpecification> getDiamond_specification(){ return this.diamond_specification; }
-    public ArrayList<String> getTag_list(){ return this.tag_list; }
 
     public class DiamondSpecification{
         private String gem_type;

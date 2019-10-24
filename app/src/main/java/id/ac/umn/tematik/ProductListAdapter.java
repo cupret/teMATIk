@@ -42,7 +42,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(@NonNull ProductListAdapter.ProductListView holder, int position) {
         Log.d("DEBUG", "Normal Bind Promo "+position);
         Product product = products.get(position);
-        holder.bind(product.getId(), product.getImages_url().get(0));
+        holder.bind(product.getCode(), product.getImages_url().get(0));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
         }
 
-        holder.bind(product.getId(), img);
+        holder.bind(product.getCode(), img);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productImg = itemView.findViewById(R.id.product_list_img);
         }
 
-        public void bind(final Integer id, String img){
+        public void bind(final String code, String img){
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

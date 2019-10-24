@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,17 +38,17 @@ public class DetailPromo extends Fragment {
     private GridLayoutManager layoutManager;
     private NavController navController;
 
-    private SparseArray<LiveData<Product>> productsLiveData = new SparseArray<>(0);
-    private SparseArray<Product> products = new SparseArray<>(0);
+    private HashMap<String, LiveData<Product>> productsLiveData = new HashMap<>(0);
+    private HashMap<String, Product> products = new HashMap(0);
     private Observer<Product> productObserver = new Observer<Product>() {
         @Override
         public void onChanged(Product product) {
             // assign value to products and notify productListAdapter
-            products.put(product.getId(), product);
+            products.put(product.getCode(), product);
 
             ArrayList<Product> newProducts = new ArrayList<>();
-            for(int i=0; i<products.size(); i++){
-                newProducts.add(products.get(products.keyAt(i)));
+            for(Product xxx: products.values()){
+                newProducts.add(xxx);
             }
 
             productListAdapter.SetData(newProducts);
@@ -107,14 +108,15 @@ public class DetailPromo extends Fragment {
                 desc.setText(promo.getDescription());
 
                 // update products livedata observer
-                for(int i=0; i<productsLiveData.size(); i++){
-                    productsLiveData.get(productsLiveData.keyAt(i)).removeObserver(productObserver);
+                for(LiveData<Product> product: productsLiveData.values()){
+                    product.removeObserver(productObserver);
                 }
+
                 productsLiveData.clear();
-                for(int id : promo.getProduct_list()){
-                    LiveData<Product> liveData = LocalDatabase.getInstance(getContext()).productQuery().getLiveDataProduct(id);
+                for(String code : promo.getProduct_code_list()){
+                    LiveData<Product> liveData = LocalDatabase.getInstance(getContext()).productQuery().getLiveDataProduct(code);
                     liveData.observe(owner, productObserver);
-                    productsLiveData.append(id, liveData);
+                    productsLiveData.put(code, liveData);
                 }
             }
         });

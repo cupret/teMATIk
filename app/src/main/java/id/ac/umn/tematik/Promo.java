@@ -17,9 +17,9 @@ public class Promo {
     private String description;
     private String start_date; //start date
     private String end_date; //en_date
-    private ArrayList<String> product_tag_list;
+    private ArrayList<String> product_code_list;
 
-    public Promo(Integer id, String name, ArrayList<String> images_url, String video_url, String description, String start_date, String end_date, ArrayList<String> product_tag_list){
+    public Promo(Integer id, String name, ArrayList<String> images_url, String video_url, String description, String start_date, String end_date, ArrayList<String> product_code_list){
         this.id = id;
         this.name = name;
         this.images_url = images_url;
@@ -27,7 +27,7 @@ public class Promo {
         this.description = description;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.product_tag_list = product_tag_list;
+        this.product_code_list = product_code_list;
     }
 
     public Integer getId(){ return this.id; }
@@ -37,5 +37,5 @@ public class Promo {
     public String getDescription(){ return this.description; }
     public String getStart_date(){ return this.start_date; }
     public String getEnd_date(){ return this.end_date; }
-    public ArrayList<String> getProduct_tag_list(){ return this.product_tag_list; }
+    public ArrayList<String> getProduct_code_list(){ return this.product_code_list; }
 }
