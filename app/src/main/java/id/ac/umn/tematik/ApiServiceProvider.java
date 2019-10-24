@@ -40,6 +40,7 @@ public class ApiServiceProvider{
         loadProduct(context);
         loadPromo(context);
         loadPlayList(context);
+        loadIdleVideo(context);
     }
 
     public void loadProduct(final Context context){
@@ -146,5 +147,29 @@ public class ApiServiceProvider{
         });
     }
 
+    public void loadIdleVideo(final Context context) {
+        Call<Video> call = apiService.loadIdleVideo();
+        call.enqueue(new Callback<Video>() {
+            @Override
+            public void onResponse(Call<Video> call, Response<Video> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        Log.i("onSuccess", response.body().toString());
+
+                        Video idleVideo = response.body();
+                        LocalDatabase.getInstance(context).videoQuery().insert(idleVideo);
+
+                    } else {
+                        Log.i("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Video> call, Throwable t) {
+
+            }
+        });
+    }
 }
 
