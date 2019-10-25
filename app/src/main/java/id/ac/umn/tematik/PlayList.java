@@ -26,6 +26,7 @@ public class PlayList {
         private String name;
         private String url;
 
+        public Integer getId(){ return this.id; }
         public String getName(){ return this.name; }
         public String getUrl(){ return this.url; }
     }

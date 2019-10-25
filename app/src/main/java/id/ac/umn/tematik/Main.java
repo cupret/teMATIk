@@ -2,6 +2,7 @@ package id.ac.umn.tematik;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,7 +27,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import java.util.List;
@@ -35,8 +39,9 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class Main extends Fragment {
-    private RecyclerView promoList;
+    private RecyclerView promoList, playlistList;
     private PromoListAdapter promoListAdapter;
+    private PlaylistListAdapter playlistListAdapter = new PlaylistListAdapter();
     private LinearLayoutManager layoutManager;
     private NavController navController;
 
@@ -45,6 +50,8 @@ public class Main extends Fragment {
     private SeekBar bar;
     private boolean barMove;
     private final int PERMISSIONS_WRITE_STORAGE= 1;
+    private boolean isPlaying = false;
+    private boolean isOpenPlaylist = false;
 
     public Main() {
         // Required empty public constructor
@@ -72,6 +79,7 @@ public class Main extends Fragment {
 
         // init recycle list
         promoList = view.findViewById(R.id.fragment_main_list);
+        playlistList = view.findViewById(R.id.fragment_main_playlist);
         layoutManager = new LinearLayoutManager(getContext());
         promoListAdapter = new PromoListAdapter(navController);
         LocalDatabase.getInstance(getContext()).promoQuery().getAllLiveDataPromo().observe(this, new Observer<List<Promo>>() {
@@ -88,6 +96,9 @@ public class Main extends Fragment {
 
         promoList.setLayoutManager(layoutManager);
         promoList.setAdapter(promoListAdapter);
+
+        playlistList.setLayoutManager(layoutManager);
+        playlistList.setAdapter(playlistListAdapter);
 
         //ask permission
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -149,15 +160,27 @@ public class Main extends Fragment {
     public void initMP(){
         View view = getView();
         // nyalain media player
-        ImageButton play = view.findViewById(R.id.fragment_main_playpause);
+        final ImageButton play = view.findViewById(R.id.fragment_main_playpause);
         ImageButton next = view.findViewById(R.id.fragment_main_next);
         ImageButton prev = view.findViewById(R.id.fragment_main_prev);
+
+        // playlist layout
+        final ImageButton showPlaylist = view.findViewById(R.id.fragment_main_openplaylist);
+        final RelativeLayout musicPlayerLayout = view.findViewById(R.id.fragment_main_musicplayer);
+        final DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = ((Activity) getContext()).getWindowManager();windowManager.getDefaultDisplay().getMetrics(metrics);
 
         if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicPlayer.mpPlay();
+
+                isPlaying = !isPlaying;
+                if(isPlaying)
+                    play.setImageResource(android.R.drawable.ic_media_pause);
+                else
+                    play.setImageResource(android.R.drawable.ic_media_play);
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +195,25 @@ public class Main extends Fragment {
             public void onClick(View v) {
                 musicPlayer.mpPrev();
                 bar.setMax(musicPlayer.mp.getDuration());
+            }
+        });
+        showPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isOpenPlaylist = !isOpenPlaylist;
+                ViewGroup.LayoutParams params = musicPlayerLayout.getLayoutParams();
+
+                // open music player by changing music player height into > 50dp
+                // and rotate button
+                if(isOpenPlaylist) {
+                    int windowHeightInDp = metrics.heightPixels / (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+                    params.height = (int)(windowHeightInDp * 0.8);
+                    showPlaylist.setRotation(180);
+                } else {
+                    params.height = 50;
+                    showPlaylist.setRotation(0);
+                }
+                musicPlayerLayout.setLayoutParams(params);
             }
         });
 

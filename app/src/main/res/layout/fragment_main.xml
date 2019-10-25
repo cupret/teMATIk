@@ -39,6 +39,7 @@
 	</RelativeLayout>
 
 	<RelativeLayout
+		android:id="@+id/fragment_main_musicplayer"
 		android:layout_width="match_parent"
 		android:layout_height="50dp"
 		android:orientation="vertical"
@@ -51,6 +52,7 @@
 			app:srcCompat="@color/colorAccent" />
 
 		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/constraintLayout"
 			android:layout_width="match_parent"
 			android:layout_height="50dp">
 
@@ -133,9 +135,9 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:max="100"
-				android:progress="20"
-				android:minHeight="5dp"
 				android:maxHeight="10dp"
+				android:minHeight="5dp"
+				android:progress="20"
 				android:progressDrawable="@drawable/custom_slider"
 				android:progressTint="@color/sliderForeground"
 				android:secondaryProgressTint="@color/backgroundDark"
@@ -161,6 +163,53 @@
 				app:layout_constraintTop_toTopOf="parent"
 				app:srcCompat="@android:drawable/arrow_up_float" />
 		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginTop="50dp"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:id="@+id/imageView2"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:srcCompat="@color/backgroundDark" />
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline6"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.05" />
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline7"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.95" />
+
+			<RelativeLayout
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="@id/guideline7"
+				app:layout_constraintStart_toStartOf="@id/guideline6"
+				app:layout_constraintTop_toTopOf="parent">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/fragment_main_playlist"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scrollbars="vertical"
+					tools:itemCount="10"
+					tools:listitem="@layout/playlist_list" />
+
+			</RelativeLayout>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
 	</RelativeLayout>
 
 	<androidx.constraintlayout.widget.Guideline
