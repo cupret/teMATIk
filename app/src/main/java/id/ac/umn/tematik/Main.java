@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
@@ -32,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -92,7 +92,24 @@ public class Main extends Fragment {
             }
         });
 
-        promoList.setLayoutManager(layoutManager);
+        // init playlist list
+        LocalDatabase.getInstance(getContext()).playListQuery().getAllLiveDataPlayList().observe(this, new Observer<List<PlayList>>() {
+            @Override
+            public void onChanged(List<PlayList> playLists) {
+                Log.d("DEBUG", "Playlist list updated");
+
+                // get active playlist
+                ArrayList<PlayList.Music> musics = PlayList.getActivePlaylistMusics((ArrayList<PlayList>) playLists);
+                if(!musics.isEmpty()) {
+                    playlistListAdapter.SetData(musics);
+                    playlistListAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e("DEBUG", "Playlist list is empty");
+                }
+            }
+        });
+
+        promoList.setLayoutManager(new LinearLayoutManager(getContext()));
         promoList.setAdapter(promoListAdapter);
 
         playlistList.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @Database(entities = {Product.class, Promo.class, PlayList.class, Video.class}, version = 1, exportSchema = false)
-@TypeConverters({StringListConverter.class, IntegerListConverter.class, SpesifikasiBerlianConverter.class})
+@TypeConverters({StringListConverter.class, IntegerListConverter.class, SpesifikasiBerlianConverter.class, MusicConverter.class})
 public abstract class LocalDatabase extends RoomDatabase {
     private static LocalDatabase localDatabase;
 
