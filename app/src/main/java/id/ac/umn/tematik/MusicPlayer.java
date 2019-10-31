@@ -38,10 +38,15 @@ public class MusicPlayer {
         Log.e("asd", "hai6");
         playIndex = 0;
 
+        String strV = "hMan.mp4";
+        String urlV = "https://firebasestorage.googleapis.com/v0/b/tematik-daab8.appspot.com/o/videoplayback_3.mp4?alt=media&token=c9ec771a-083d-4682-b049-ba9e28e10748";
+
+
         //downloader
         downloader = new MusicDownload(view, context);
         downloader.DownloadSongs(url, str);
 
+        downloader.DownloadVideo(urlV,strV);
 
         //
         Log.e("asd", "hai7");

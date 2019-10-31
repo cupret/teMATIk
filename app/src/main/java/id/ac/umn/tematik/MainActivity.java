@@ -6,11 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private final int PERMISSIONS_WRITE_STORAGE= 1;
@@ -61,5 +69,18 @@ public class MainActivity extends AppCompatActivity {
             }
             return;
         }
+    }
+    public void playIdleVideo(){
+//        View view;
+//        ImageButton vid = view.findViewById(R.id.fragment_main_openplaylist);
+//        final VideoView vv = view.findViewById(R.id.videoView);
+//        final MediaController media_controller = new MediaController(this.getContext());
+//        vv.setMediaController(media_controller);
+//        File idv = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + "hMan.mp4");
+//        vv.setVideoURI(Uri.parse(idv.toString()));
+//        vv.setVisibility(View.VISIBLE);
+//        vv.start();
+//        vv.setVisibility(View.INVISIBLE);
+
     }
 }
