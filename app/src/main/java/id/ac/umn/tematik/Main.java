@@ -42,7 +42,6 @@ public class Main extends Fragment {
     private RecyclerView promoList, playlistList;
     private PromoListAdapter promoListAdapter;
     private PlaylistListAdapter playlistListAdapter = new PlaylistListAdapter();
-    private LinearLayoutManager layoutManager;
     private NavController navController;
 
     private MusicPlayer musicPlayer;
@@ -80,7 +79,6 @@ public class Main extends Fragment {
         // init recycle list
         promoList = view.findViewById(R.id.fragment_main_list);
         playlistList = view.findViewById(R.id.fragment_main_playlist);
-        layoutManager = new LinearLayoutManager(getContext());
         promoListAdapter = new PromoListAdapter(navController);
         LocalDatabase.getInstance(getContext()).promoQuery().getAllLiveDataPromo().observe(this, new Observer<List<Promo>>() {
             @Override
@@ -97,7 +95,7 @@ public class Main extends Fragment {
         promoList.setLayoutManager(layoutManager);
         promoList.setAdapter(promoListAdapter);
 
-        playlistList.setLayoutManager(layoutManager);
+        playlistList.setLayoutManager(new LinearLayoutManager(getContext()));
         playlistList.setAdapter(playlistListAdapter);
 
         //ask permission
