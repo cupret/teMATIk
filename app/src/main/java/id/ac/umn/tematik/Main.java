@@ -204,11 +204,10 @@ public class Main extends Fragment {
                 // open music player by changing music player height into > 50dp
                 // and rotate button
                 if(isOpenPlaylist) {
-                    int windowHeightInDp = metrics.heightPixels / (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-                    params.height = (int)(windowHeightInDp * 0.8);
+                    params.height = (int)(metrics.heightPixels * 0.8);
                     showPlaylist.setRotation(180);
                 } else {
-                    params.height = 50;
+                    params.height = (int)(50 * getResources().getDisplayMetrics().density);
                     showPlaylist.setRotation(0);
                 }
                 musicPlayerLayout.setLayoutParams(params);
