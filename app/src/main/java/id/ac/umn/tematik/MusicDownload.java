@@ -100,5 +100,28 @@ public class MusicDownload {
         }
     }
 
+    public void DownloadVideo(String url, String name){
+        Log.e("asd", "hai5");
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + name);
+        if(!file.exists()){
+            Log.e("download", "!exist");
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url))
+                    .setTitle("Test Download")// Title of the Download Notification
+                    .setDescription("Downloading")// Description of the Download Notification
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)// Visibility of the download Notification
+                    .setDestinationInExternalPublicDir("/Video", name)
+                    .setRequiresCharging(false)// Set if charging is required to begin the download
+                    .setAllowedOverMetered(true)// Set if download is allowed on Mobile network
+                    .setAllowedOverRoaming(true);// Set if download is allowed on roaming network
+            dm = (DownloadManager)ctx.getSystemService(ctx.DOWNLOAD_SERVICE);
+            dm.enqueue(request);
+            songDownloading++;
+        }
+        else{
+            Log.e("download", "file already exist");
+        }
+
+    }
+
 
 }

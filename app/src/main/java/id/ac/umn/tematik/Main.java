@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,11 +29,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 
 
@@ -108,7 +114,7 @@ public class Main extends Fragment {
                 }
             }
         });
-
+        
         promoList.setLayoutManager(new LinearLayoutManager(getContext()));
         promoList.setAdapter(promoListAdapter);
 
@@ -178,6 +184,29 @@ public class Main extends Fragment {
         final ImageButton play = view.findViewById(R.id.fragment_main_playpause);
         ImageButton next = view.findViewById(R.id.fragment_main_next);
         ImageButton prev = view.findViewById(R.id.fragment_main_prev);
+        Button btn = view.findViewById(R.id.button);
+        // idle video
+        final VideoView vv = view.findViewById(R.id.videoView);
+        final MediaController media_controller = new MediaController(this.getContext());
+        vv.setMediaController(media_controller);
+        File idv = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + "hMan.mp4");
+        vv.setVideoURI(Uri.parse(idv.toString()));
+        vv.setVisibility(View.VISIBLE);
+        vv.start();
+        vv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vv.setVisibility(View.INVISIBLE);
+            }
+        });
+        vv.setVisibility(View.INVISIBLE);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vv.setVisibility(View.VISIBLE);
+            }
+        });
+
 
         // playlist layout
         final ImageButton showPlaylist = view.findViewById(R.id.fragment_main_openplaylist);
