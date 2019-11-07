@@ -1,5 +1,6 @@
 package id.ac.umn.tematik;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -38,6 +42,8 @@ public class DetailPromo extends Fragment {
     private ProductListAdapter productListAdapter;
     private GridLayoutManager layoutManager;
     private NavController navController;
+
+    final DisplayMetrics metrics = new DisplayMetrics();
 
     private HashMap<String, LiveData<Product>> productsLiveData = new HashMap<>(0);
     private HashMap<String, Product> products = new HashMap(0);
@@ -62,7 +68,7 @@ public class DetailPromo extends Fragment {
     private TextView dateTo;
     private TextView desc;
     private VideoView vid;
-    private RecyclerView imgs;
+    private RecyclerView product_imgs;
     private CarouselView promoImg;
 
     private ArrayList<String> urls;
@@ -92,23 +98,28 @@ public class DetailPromo extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // set toolbar
-        setHasOptionsMenu(true);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).setActionBar(toolbar);
-        ((MainActivity)getActivity()).setHomeButton(android.R.drawable.ic_delete);
+        WindowManager windowManager = ((Activity) getContext()).getWindowManager();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+
+//        // set toolbar
+//        setHasOptionsMenu(true);
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        ((MainActivity)getActivity()).setActionBar(toolbar);
+//        ((MainActivity)getActivity()).setHomeButton(android.R.drawable.ic_delete);
 
         // set navController
         navController =  NavHostFragment.findNavController(this);
 
         // init views
-        name = view.findViewById(R.id.detail_product_title);
-        dateFrom = view.findViewById(R.id.detail_promo_date_from);
+        name = view.findViewById(R.id.detail_promo_title);
+//        dateFrom = view.findViewById(R.id.detail_promo_date_from);
         dateTo = view.findViewById(R.id.detail_promo_date_to);
         desc = view.findViewById(R.id.detail_promo_desc);
         vid = view.findViewById(R.id.detail_promo_vid);
-        imgs = view.findViewById(R.id.detail_promo_imgs);
+        product_imgs = view.findViewById(R.id.detail_promo_imgs);
         promoImg = view.findViewById(R.id.detail_promo_list_img);
+        promoImg.getLayoutParams().height = (int)(metrics.heightPixels); //height carousell
+
         promoImg.setImageListener(imageListener);
 
         // init recycle list
@@ -121,8 +132,8 @@ public class DetailPromo extends Fragment {
         LocalDatabase.getInstance(getContext()).promoQuery().getLiveDataPromo(promoId).observe(owner, new Observer<Promo>() {
             @Override
             public void onChanged(Promo promo) {
-                name.setText(promo.getName());
-                dateFrom.setText("From: " + promo.getStart_date());
+                name.setText(promo.getName().toUpperCase());
+//                dateFrom.setText("From: " + promo.getStart_date());
                 dateTo.setText("To: " + promo.getEnd_date());
                 desc.setText(promo.getDescription());
 
@@ -154,18 +165,18 @@ public class DetailPromo extends Fragment {
             }
         });
 
-        imgs.setLayoutManager(layoutManager);
-        imgs.setAdapter(productListAdapter);
+        product_imgs.setLayoutManager(layoutManager);
+        product_imgs.setAdapter(productListAdapter);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                getActivity().onBackPressed();
-                return  true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()){
+//            case android.R.id.home:
+//                getActivity().onBackPressed();
+//                return  true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }
