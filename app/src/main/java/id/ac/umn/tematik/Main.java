@@ -132,6 +132,10 @@ public class Main extends Fragment {
                 }
 
                 promos = inputPromos;
+                if(promos.size() > 0)
+                    promoImg.setPageCount(promos.size());
+                else
+                    promoImg.setPageCount(0);
             }
         });
 
