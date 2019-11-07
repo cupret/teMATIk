@@ -23,18 +23,21 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.VideoView;
+
+import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.io.File;
@@ -45,10 +48,13 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class Main extends Fragment {
-    private RecyclerView promoList, playlistList;
-    private PromoListAdapter promoListAdapter;
+    private RecyclerView playlistList;
     private PlaylistListAdapter playlistListAdapter = new PlaylistListAdapter();
     private NavController navController;
+    private TextView companyName;
+
+    final DisplayMetrics metrics = new DisplayMetrics();
+    WindowManager windowManager;
 
     private MusicPlayer musicPlayer;
     private Thread thr;
@@ -57,6 +63,27 @@ public class Main extends Fragment {
     private final int PERMISSIONS_WRITE_STORAGE= 1;
     private boolean isPlaying = false;
     private boolean isOpenPlaylist = false;
+
+    // carousel view
+    List<Promo> promos = new ArrayList<Promo>();
+    CarouselView promoImg;
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(final int position, ImageView imageView) {
+            ArrayList<String> urls = promos.get(position).getImages_url();
+
+            if(!urls.isEmpty()) {
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                Picasso.get().load(urls.get(0)).into(imageView);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        navController.navigate(MainDirections.actionMainToDetailPromo(promos.get(position).getId()));
+                    }
+                });
+            }
+        }
+    };
 
     public Main() {
         // Required empty public constructor
@@ -74,31 +101,42 @@ public class Main extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.e("asd", "hai");
 
-        // set toolbar
-        setHasOptionsMenu(true);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).setActionBar(toolbar);
+        windowManager = ((Activity) getContext()).getWindowManager();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
 
         // set navController
         navController =  NavHostFragment.findNavController(this);
 
-        // init recycle list
-        promoList = view.findViewById(R.id.fragment_main_list);
-        playlistList = view.findViewById(R.id.fragment_main_playlist);
-        promoListAdapter = new PromoListAdapter(navController);
+        // set feature to refresh
+        companyName = view.findViewById(R.id.judulid);
+        companyName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiServiceProvider.getInstance().update(getContext());
+            }
+        });
+
+        // init carouselview
+        // set carouselview data and behavior and height programatically
+        promoImg = view.findViewById(R.id.fragment_main_promo);
+        ViewGroup.LayoutParams params = promoImg.getLayoutParams();
+        params.height = metrics.heightPixels;
+
+        promoImg.setImageListener(imageListener);
         LocalDatabase.getInstance(getContext()).promoQuery().getAllLiveDataPromo().observe(this, new Observer<List<Promo>>() {
             @Override
-            public void onChanged(List<Promo> promos) {
+            public void onChanged(List<Promo> inputPromos) {
                 Log.d("DEBUG", "Promo list updated");
-                for (Promo promo: promos) {
+                for (Promo promo: inputPromos) {
                     Log.d("DEBUG", "Promolist onchanged: "+promo.getId());
                 }
-                promoListAdapter.SetData(promos);
-                promoListAdapter.notifyDataSetChanged();
+
+                promos = inputPromos;
             }
         });
 
         // init playlist list
+        playlistList = view.findViewById(R.id.fragment_main_playlist);
         LocalDatabase.getInstance(getContext()).playListQuery().getAllLiveDataPlayList().observe(this, new Observer<List<PlayList>>() {
             @Override
             public void onChanged(List<PlayList> playLists) {
@@ -114,9 +152,6 @@ public class Main extends Fragment {
                 }
             }
         });
-        
-        promoList.setLayoutManager(new LinearLayoutManager(getContext()));
-        promoList.setAdapter(promoListAdapter);
 
         playlistList.setLayoutManager(new LinearLayoutManager(getContext()));
         playlistList.setAdapter(playlistListAdapter);
@@ -132,6 +167,7 @@ public class Main extends Fragment {
 
     }
 
+    /*
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_main_menu, menu);
@@ -155,6 +191,7 @@ public class Main extends Fragment {
 
         }
     }
+    */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -211,8 +248,6 @@ public class Main extends Fragment {
         // playlist layout
         final ImageButton showPlaylist = view.findViewById(R.id.fragment_main_openplaylist);
         final RelativeLayout musicPlayerLayout = view.findViewById(R.id.fragment_main_musicplayer);
-        final DisplayMetrics metrics = new DisplayMetrics();
-        WindowManager windowManager = ((Activity) getContext()).getWindowManager();windowManager.getDefaultDisplay().getMetrics(metrics);
 
         if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
         play.setOnClickListener(new View.OnClickListener() {
