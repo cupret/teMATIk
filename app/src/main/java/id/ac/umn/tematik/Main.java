@@ -230,8 +230,19 @@ public class Main extends Fragment {
         final VideoView vv = view.findViewById(R.id.videoView);
         final MediaController media_controller = new MediaController(this.getContext());
         vv.setMediaController(media_controller);
-        File idv = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + "hMan.mp4");
-        vv.setVideoURI(Uri.parse(idv.toString()));
+        LocalDatabase.getInstance(getContext()).videoQuery().getLiveDataVideo().observe(this, new Observer<List<Video>>() {
+            @Override
+            public void onChanged(List<Video> videos) {
+                // check if video available
+                // video only 1 so only check video[0]
+                // auto update video view uri
+                if(videos != null && videos.get(0) != null) {
+                    Video video = videos.get(0);
+                    File idv = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + video.getName());
+                    vv.setVideoURI(Uri.parse(idv.toString()));
+                }
+            }
+        });
         vv.setVisibility(View.VISIBLE);
         vv.start();
         vv.setOnClickListener(new View.OnClickListener() {

@@ -1,14 +1,18 @@
 package id.ac.umn.tematik;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,8 +21,10 @@ import android.widget.VideoView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
 
 import java.io.File;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final int PERMISSIONS_WRITE_STORAGE= 1;
@@ -40,6 +46,20 @@ public class MainActivity extends AppCompatActivity {
             Log.e("asd", "stroage already granted bro");
             setContentView(R.layout.activity_main);
         }
+
+        final Context context = this;
+        LocalDatabase.getInstance(this).videoQuery().getLiveDataVideo().observe(this, new Observer<List<Video>>() {
+            @Override
+            public void onChanged(List<Video> videos) {
+                // check if video available
+                // video only 1 so only check video[0]
+                if(videos != null && videos.get(0) != null) {
+                    Video video = videos.get(0);
+                    MusicDownload downloader = new MusicDownload(context);
+                    downloader.DownloadVideo(video.getVideo_url(), video.getName());
+                }
+            }
+        });
     }
 
     public void setActionBar(Toolbar toolbar){
