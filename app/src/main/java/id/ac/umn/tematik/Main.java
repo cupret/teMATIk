@@ -52,7 +52,7 @@ public class Main extends Fragment {
     private PlaylistListAdapter playlistListAdapter = new PlaylistListAdapter();
     private NavController navController;
     private TextView companyName;
-    private ArrayList<Music> playListMusicPlay;
+    private ArrayList<PlayList.Music> playListMusicPlay;
 
     final DisplayMetrics metrics = new DisplayMetrics();
     WindowManager windowManager;

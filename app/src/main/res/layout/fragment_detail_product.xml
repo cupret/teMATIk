@@ -10,69 +10,168 @@
 
 	<!-- TODO: Update blank fragment layout -->
 
-	<androidx.appcompat.widget.Toolbar
-		android:id="@+id/toolbar"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:background="?attr/colorPrimary"
-		android:elevation="20dp"
-		android:minHeight="?attr/actionBarSize"
-		android:theme="?attr/actionBarTheme"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.95" />
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.05" />
+	<!--<androidx.appcompat.widget.Toolbar-->
+		<!--android:id="@+id/toolbar"-->
+		<!--android:layout_width="0dp"-->
+		<!--android:layout_height="wrap_content"-->
+		<!--android:background="?attr/colorPrimary"-->
+		<!--android:elevation="20dp"-->
+		<!--android:minHeight="?attr/actionBarSize"-->
+		<!--android:theme="?attr/actionBarTheme"-->
+		<!--app:layout_constraintEnd_toEndOf="parent"-->
+		<!--app:layout_constraintStart_toStartOf="parent"-->
+		<!--app:layout_constraintTop_toTopOf="parent" />-->
 
 	<ScrollView
-		android:id="@+id/scrollviewid"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
+		android:id="@+id/scrollview"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@+id/guideline2"
-		app:layout_constraintStart_toStartOf="@+id/guideline"
-		app:layout_constraintTop_toBottomOf="@+id/toolbar">
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<TextView
-				android:id="@+id/detail_product_title"
+			<LinearLayout
+				android:id="@+id/detail_product_main"
 				android:layout_width="match_parent"
-				android:layout_height="75dp"
-				android:layout_weight="0.3"
-				android:gravity="center"
-				android:text="Title"
-				android:textColor="@android:color/black"
-				android:textSize="30sp" />
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:padding="32dp">
 
-			<com.synnapps.carouselview.CarouselView
-				android:id="@+id/detail_product_list_img"
+				<LinearLayout
+					android:layout_weight="2"
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:paddingTop="32dp"
+					android:paddingBottom="32dp"
+					android:paddingLeft="64dp"
+					android:paddingRight="64dp">
+
+					<com.synnapps.carouselview.CarouselView
+						android:id="@+id/detail_product_list_img"
+						android:layout_width="match_parent"
+						android:layout_height="350dp"
+						android:paddingVertical="25dp"
+						app:fillColor="@color/colorPrimary"
+						app:pageColor="#00000000"
+						app:radius="5dp"
+						app:slideInterval="5000"
+						app:strokeColor="@color/colorAccent"
+						app:strokeWidth="1dp" />
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_weight="3"
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:padding="32dp"
+					android:gravity="center">
+
+					<TextView
+						android:id="@+id/detail_product_title"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="16dp"
+						android:fontFamily="@font/proxima_nova_alt_light"
+						android:textSize="48sp"
+						android:text="Title" />
+
+					<TextView
+						android:id="@+id/detail_product_price"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="24dp"
+						android:fontFamily="@font/neutra_text_light"
+						android:textColor="@android:color/holo_orange_dark"
+						android:textSize="36sp"
+						android:text="Rp 1.000.000" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical"
+						android:layout_marginBottom="24dp">
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="8dp"
+							android:fontFamily="@font/proxima_nova_extrabold"
+							android:text="Descriptions and Detail"
+							android:textSize="24sp" />
+
+						<TextView
+							android:id="@+id/detail_product_desc"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:fontFamily="@font/neutra_text_demi_italic"
+							android:text="Desc desc desc desc"
+							android:textSize="24sp" />
+
+					</LinearLayout>
+
+					<TextView
+						android:id="@+id/detail_product_color"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="4dp"
+						android:fontFamily="@font/proxima_nova_regular"
+						android:text="Color : COLOR"
+						android:textSize="24sp" />
+
+					<TextView
+						android:id="@+id/detail_product_weight"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="16dp"
+						android:fontFamily="@font/proxima_nova_regular"
+						android:text="Weight Est. : WEIGHT gram"
+						android:textSize="24sp" />
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="350dp"
-				android:paddingVertical="25dp"
-				app:fillColor="@color/colorPrimary"
-				app:pageColor="#00000000"
-				app:radius="5dp"
-				app:slideInterval="5000"
-				app:strokeColor="@color/colorAccent"
-				app:strokeWidth="1dp" />
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:paddingTop="48dp"
+				android:paddingBottom="48dp"
+				android:paddingLeft="72dp"
+				android:paddingRight="72dp"
+				android:layout_marginBottom="32dp"
+				android:background="@color/colorAccent">
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="24dp"
+					android:fontFamily="@font/proxima_nova_alt_light"
+					android:text="Diamond Specifiaction"
+					android:textSize="48sp"
+					android:textColor="@android:color/white"/>
+
+				<LinearLayout
+					android:id="@+id/detail_product_diamond_spec"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+
+				</LinearLayout>
+
+			</LinearLayout>
+
 		</LinearLayout>
+
 	</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

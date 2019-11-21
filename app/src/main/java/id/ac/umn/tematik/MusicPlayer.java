@@ -54,13 +54,13 @@ public class MusicPlayer {
         Log.e("ey",Environment.getExternalStorageDirectory().getAbsolutePath());
     }
 
-    void mpDownloadFromPlaylist(ArrayList<Music> playList){
-        if(!playList.isEmpty){
-            downloader = new MusicDownload(context);
-            musicNames = new ArrayList<String>;
+    void mpDownloadFromPlaylist(ArrayList<PlayList.Music> playList){
+        if(playList!=null && !playList.isEmpty()){
+            downloader = new MusicDownload(ctx);
+            musicNames = new ArrayList<String>();
             for(int x=0; x<playList.size(); x++){
-                downloader.DownloadSong(playList.getUrl(),nameToMp(playList.getName()));
-                musicNames.add(nameToMp(playList.getName()));
+                downloader.DownloadSong(playList.get(x).getUrl(),nameToMp(playList.get(x).getName()));
+                musicNames.add(nameToMp(playList.get(x).getName()));
             }
         }
     }
@@ -75,7 +75,7 @@ public class MusicPlayer {
     }
     void mpPlay(){
         if(!canPlay){
-            if(!downloader.isDownloading()) {
+            if(downloader!=null && !downloader.isDownloading()) {
                 canPlay = true;
 
                 checkFiles(musicNames);
