@@ -15,13 +15,11 @@ import java.io.File;
 public class MusicDownload {
     public DownloadManager dm;
     private Context ctx;
-    private View view;
     public int songDownloading;
 
 
-    public MusicDownload(View view, Context context){
+    public MusicDownload(Context context){
         this.ctx = context;
-        this.view = view;
         songDownloading = 0;
         ctx.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
