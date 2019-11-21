@@ -78,7 +78,7 @@ public class MusicPlayer {
             if(downloader!=null && !downloader.isDownloading()) {
                 canPlay = true;
 
-                checkFiles(musicNames);
+//                checkFiles(musicNames);
                 mySongs = findSongs(Environment.getExternalStorageDirectory());
 
                 Log.e("ey","Data: " + mySongs.size());

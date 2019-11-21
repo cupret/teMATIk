@@ -153,6 +153,7 @@ public class Main extends Fragment {
                     playlistListAdapter.SetData(musics);
                     playlistListAdapter.notifyDataSetChanged();
                     playListMusicPlay = musics;
+                    initMP();
                 } else {
                     Log.e("DEBUG", "Playlist list is empty");
                 }
@@ -168,7 +169,7 @@ public class Main extends Fragment {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_WRITE_STORAGE);
         } else {
             Log.e("asd", "stroage already granted bro2");
-            initMP();
+//            initMP();
         }
 
     }
