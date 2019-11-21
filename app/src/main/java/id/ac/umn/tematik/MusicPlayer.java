@@ -59,8 +59,8 @@ public class MusicPlayer {
             downloader = new MusicDownload(context);
             musicNames = new ArrayList<String>;
             for(int x=0; x<playList.size(); x++){
-                downloader.DownloadSong(playList.getUrl(),playList.getName());
-                musicNames.add(playList.getName());
+                downloader.DownloadSong(playList.getUrl(),nameToMp(playList.getName()));
+                musicNames.add(nameToMp(playList.getName()));
             }
         }
     }
