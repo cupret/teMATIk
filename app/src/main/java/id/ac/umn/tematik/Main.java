@@ -72,7 +72,7 @@ public class Main extends Fragment {
         public void setImageForPosition(final int position, ImageView imageView) {
             ArrayList<String> urls = promos.get(position).getImages_url();
 
-            if(!urls.isEmpty()) {
+            if(urls != null && urls.size() > 0) {
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 Picasso.get().load(urls.get(0)).into(imageView);
                 imageView.setOnClickListener(new View.OnClickListener() {

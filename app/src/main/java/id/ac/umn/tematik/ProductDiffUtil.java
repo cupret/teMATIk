@@ -10,6 +10,8 @@ import java.util.List;
 
 public class ProductDiffUtil extends DiffUtil.Callback {
     public static final String IMG = "IMG";
+    public static final String TITLE = "TITLE";
+    public static final String PRICE = "PRICE";
 
     private List<Product> oldList;
     private List<Product> newList;
@@ -43,6 +45,9 @@ public class ProductDiffUtil extends DiffUtil.Callback {
             if(oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) != 0)
                 isSame = false;
         }
+        if(oldList.get(oldItemPosition).getName().compareTo(newList.get(newItemPosition).getName()) != 0) isSame = false;
+        if(oldList.get(oldItemPosition).getPrice() != newList.get(newItemPosition).getPrice()) isSame = false;
+
         Log.d("DEBUG", "areContentsTheSame: " + isSame.toString());
         return isSame;
     }
@@ -55,6 +60,9 @@ public class ProductDiffUtil extends DiffUtil.Callback {
             if(oldList.get(oldItemPosition).getImages_url().get(0).compareTo(newList.get(newItemPosition).getImages_url().get(0)) != 0)
                 bundle.putString(IMG, newList.get(newItemPosition).getImages_url().get(0));
         }
+
+        if(oldList.get(oldItemPosition).getName().compareTo(newList.get(newItemPosition).getName()) != 0) bundle.putString(TITLE, newList.get(newItemPosition).getName());
+        if(oldList.get(oldItemPosition).getPrice() != newList.get(newItemPosition).getPrice()) bundle.putInt(PRICE, newList.get(newItemPosition).getPrice());
 
         return bundle;
     }

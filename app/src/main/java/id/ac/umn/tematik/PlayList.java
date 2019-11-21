@@ -17,10 +17,11 @@ public class PlayList {
     private String end_date;
     private ArrayList<Music> musicList;
 
-    public PlayList(@NonNull Integer id, String start_date, String end_date){
+    public PlayList(@NonNull Integer id, String start_date, String end_date, ArrayList<Music> musicList){
         this.id = id;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.musicList = musicList;
     }
 
     public Integer getId(){ return this.id; }
