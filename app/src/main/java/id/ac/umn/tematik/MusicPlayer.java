@@ -25,6 +25,7 @@ public class MusicPlayer {
     public boolean isPlay;
     public MusicDownload downloader;
     public boolean canPlay;
+    public ArrayList<String> musicNames;
 
     public MusicPlayer(View view, Context context){
         Log.e("asd", "hai2");
@@ -43,14 +44,25 @@ public class MusicPlayer {
 
 
         //downloader
-        downloader = new MusicDownload(view, context);
-        downloader.DownloadSongs(url, str);
+//        downloader = new MusicDownload(view, context);
+//        downloader.DownloadSongs(url, str);
 
-        downloader.DownloadVideo(urlV,strV);
+//        downloader.DownloadVideo(urlV,strV);
 
         //
         Log.e("asd", "hai7");
         Log.e("ey",Environment.getExternalStorageDirectory().getAbsolutePath());
+    }
+
+    void mpDownloadFromPlaylist(ArrayList<Music> playList){
+        if(!playList.isEmpty){
+            downloader = new MusicDownload(context);
+            musicNames = new ArrayList<String>;
+            for(int x=0; x<playList.size(); x++){
+                downloader.DownloadSong(playList.getUrl(),playList.getName());
+                musicNames.add(playList.getName());
+            }
+        }
     }
 
     void mpStop(){
@@ -66,6 +78,7 @@ public class MusicPlayer {
             if(!downloader.isDownloading()) {
                 canPlay = true;
 
+                checkFiles(musicNames);
                 mySongs = findSongs(Environment.getExternalStorageDirectory());
 
                 Log.e("ey","Data: " + mySongs.size());
@@ -140,14 +153,14 @@ public class MusicPlayer {
         return al;
     }
 
-    public void checkFiles(String[] names){
+    public void checkFiles(ArrayList<String> names){
         File[] files = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music/").listFiles();
         boolean check = false;
         int len = files.length;
         for(int x = 0; x < len ; x++){
             check = false;
-            for(int y=0; y < names.length; y++){
-                if(nameToMp(names[y]).equals(files[x].getName())){
+            for(int y=0; y < names.size(); y++){
+                if(nameToMp(names.get(y)).equals(files[x].getName())){
                     check=true;
                     break;
                 }

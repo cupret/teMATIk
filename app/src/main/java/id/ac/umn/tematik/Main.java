@@ -52,6 +52,7 @@ public class Main extends Fragment {
     private PlaylistListAdapter playlistListAdapter = new PlaylistListAdapter();
     private NavController navController;
     private TextView companyName;
+    private ArrayList<Music> playListMusicPlay;
 
     final DisplayMetrics metrics = new DisplayMetrics();
     WindowManager windowManager;
@@ -151,6 +152,7 @@ public class Main extends Fragment {
                 if(!musics.isEmpty()) {
                     playlistListAdapter.SetData(musics);
                     playlistListAdapter.notifyDataSetChanged();
+                    playListMusicPlay = musics;
                 } else {
                     Log.e("DEBUG", "Playlist list is empty");
                 }
@@ -265,6 +267,7 @@ public class Main extends Fragment {
         final RelativeLayout musicPlayerLayout = view.findViewById(R.id.fragment_main_musicplayer);
 
         if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
+        musicPlayer.mpDownloadFromPlaylist(playListMusicPlay);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
