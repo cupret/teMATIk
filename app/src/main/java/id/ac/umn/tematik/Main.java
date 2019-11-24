@@ -12,14 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +45,8 @@ import com.synnapps.carouselview.ImageListener;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.List;
+import java.util.TimerTask;
+import java.util.concurrent.FutureTask;
 
 
 /**
@@ -53,6 +58,7 @@ public class Main extends Fragment {
     private NavController navController;
     private TextView companyName;
     private ArrayList<PlayList.Music> playListMusicPlay;
+    private SwipeRefreshLayout refresh;
 
     final DisplayMetrics metrics = new DisplayMetrics();
     WindowManager windowManager;
@@ -109,11 +115,23 @@ public class Main extends Fragment {
         navController =  NavHostFragment.findNavController(this);
 
         // set feature to refresh
-        companyName = view.findViewById(R.id.judulid);
-        companyName.setOnClickListener(new View.OnClickListener() {
+        // pull down to refresh
+        refresh = view.findViewById(R.id.fragment_main_scroll_refresh);
+        refresh.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
+            public void onRefresh() {
                 ApiServiceProvider.getInstance().update(getContext());
+                if(refresh.isRefreshing()) {
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            refresh.setRefreshing(false);
+                        }
+                    }, 5000);
+
+                }
             }
         });
 
