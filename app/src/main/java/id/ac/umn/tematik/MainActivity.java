@@ -53,10 +53,12 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<Video> videos) {
                 // check if video available
                 // video only 1 so only check video[0]
-                if(videos != null && videos.get(0) != null) {
-                    Video video = videos.get(0);
-                    MusicDownload downloader = new MusicDownload(context);
-                    downloader.DownloadVideo(video.getVideo_url(), video.getName());
+                if(videos != null) {
+                    if(videos.size() > 0) {
+                        Video video = videos.get(0);
+                        MusicDownload downloader = new MusicDownload(context);
+                        downloader.DownloadVideo(video.getVideo_url(), video.getName());
+                    }
                 }
             }
         });
