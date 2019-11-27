@@ -15,8 +15,9 @@ public class Product {
     private String video_url;
     private Integer price;
     private String description;
-    private float weight_estimation;
-    private String color; //color
+    private float weight;
+    private String metal; //color
+    private float purity;
     private ArrayList<DiamondSpecification> diamond_specification;
 
     public Product(
@@ -26,8 +27,9 @@ public class Product {
             String video_url,
             Integer price,
             String description,
-            float weight_estimation,
-            String color,
+            float weight,
+            String metal,
+            float purity,
             ArrayList<DiamondSpecification> diamond_specification
     ){
         this.code = code;
@@ -36,8 +38,9 @@ public class Product {
         this.video_url = video_url;
         this.price = price;
         this.description = description;
-        this.weight_estimation = weight_estimation;
-        this.color = color;
+        this.weight = weight;
+        this.metal = metal;
+        this.purity = purity;
         this.diamond_specification = diamond_specification;
     }
 
@@ -47,33 +50,31 @@ public class Product {
     public ArrayList<String> getImages_url(){ return this.images_url; }
     public String getVideo_url(){ return this.video_url; }
     public String getDescription(){ return this.description; }
-    public float getWeight_estimation(){ return this.weight_estimation; }
-    public String getColor(){ return this.color; }
+    public float getWeight(){ return this.weight; }
+    public String getMetal(){ return this.metal; }
+    public float getPurity(){ return this.purity; }
     public ArrayList<DiamondSpecification> getDiamond_specification(){ return this.diamond_specification; }
 
     public class DiamondSpecification{
         private String gem_type;
-        private String shape;
         private Integer quantity;
-        private float carat_weight; // float
         private String cut;
         private String color;
         private String clarity;
+        private float carat; // float
 
-        public DiamondSpecification(String gem_type, String shape, Integer quantity, float carat_weight, boolean rodhium_surface, String cut, String color, String clarity){
+        public DiamondSpecification(String gem_type, Integer quantity, String cut, String color, String clarity, float carat){
             this.gem_type = gem_type;
-            this.shape = shape;
             this.quantity = quantity;
-            this.carat_weight = carat_weight;
+            this.carat = carat;
             this.cut = cut;
             this.color = color;
             this.clarity = clarity;
         }
 
         public String getGemType(){ return this.gem_type; }
-        public String getShape(){ return this.shape; }
         public Integer getQuantity(){ return this.quantity; }
-        public float getCarat_weight(){ return this.carat_weight; }
+        public float getCarat(){ return this.carat; }
         public String getCut(){ return this.cut; }
         public String getColor(){ return this.color; }
         public String getClarity(){ return this.clarity; }

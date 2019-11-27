@@ -30,13 +30,12 @@ public class PlaylistDiffUtil extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        Boolean isSame = oldList.get(oldItemPosition).getId().intValue() == newList.get(newItemPosition).getId().intValue();
-        return isSame;
+        return oldList.get(oldItemPosition).getName().compareTo(newList.get(newItemPosition).getName()) == 0;
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldList.get(oldItemPosition).getName().compareTo(newList.get(newItemPosition).getName()) == 0;
+        return true;
     }
 
     @Nullable

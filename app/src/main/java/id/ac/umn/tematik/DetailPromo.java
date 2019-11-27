@@ -112,7 +112,7 @@ public class DetailPromo extends Fragment {
 
         // init views
         name = view.findViewById(R.id.detail_promo_title);
-//        dateFrom = view.findViewById(R.id.detail_promo_date_from);
+        dateFrom = view.findViewById(R.id.detail_promo_date_from);
         dateTo = view.findViewById(R.id.detail_promo_date_to);
         desc = view.findViewById(R.id.detail_promo_desc);
         vid = view.findViewById(R.id.detail_promo_vid);
@@ -133,7 +133,7 @@ public class DetailPromo extends Fragment {
             @Override
             public void onChanged(Promo promo) {
                 name.setText(promo.getName().toUpperCase());
-//                dateFrom.setText("From: " + promo.getStart_date());
+                dateFrom.setText("From: " + promo.getStart_date());
                 dateTo.setText("To: " + promo.getEnd_date());
                 desc.setText(promo.getDescription());
 

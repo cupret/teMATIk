@@ -60,10 +60,10 @@ public class ApiServiceProvider{
                         List<Product> db_products = LocalDatabase.getInstance(context).productQuery().getAllProduct();
                         for(int x=0; x<db_products.size(); x++){
                             Log.i("product", "Product code desgin: "+ db_products.get(x).getCode());
-                            Log.i("product", "Product color: "+ db_products.get(x).getColor());
+                            Log.i("product", "Product metal "+ db_products.get(x).getMetal());
                             for(int y=0; y<db_products.get(x).getDiamond_specification().size(); y++) {
                                 Log.i("product_diamond", "Diamond Spec " + y + " Type: " + db_products.get(x).getDiamond_specification().get(y).getGemType());
-                                Log.i("product_diamond", "Diamond Spec " + y + " eight: " + db_products.get(x).getDiamond_specification().get(y).getCarat_weight());
+                                Log.i("product_diamond", "Diamond Spec " + y + " eight: " + db_products.get(x).getDiamond_specification().get(y).getCarat());
                             }
                         }
                     } else {

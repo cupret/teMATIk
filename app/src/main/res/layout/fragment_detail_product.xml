@@ -36,109 +36,126 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<LinearLayout
-				android:id="@+id/detail_product_main"
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:padding="32dp">
+				android:layout_height="wrap_content">
 
 				<LinearLayout
-					android:layout_weight="2"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:orientation="vertical"
-					android:paddingTop="32dp"
-					android:paddingBottom="32dp"
-					android:paddingLeft="64dp"
-					android:paddingRight="64dp">
-
-					<com.synnapps.carouselview.CarouselView
-						android:id="@+id/detail_product_list_img"
-						android:layout_width="match_parent"
-						android:layout_height="350dp"
-						android:paddingVertical="25dp"
-						app:fillColor="@color/colorPrimary"
-						app:pageColor="#00000000"
-						app:radius="5dp"
-						app:slideInterval="5000"
-						app:strokeColor="@color/colorAccent"
-						app:strokeWidth="1dp" />
-
-				</LinearLayout>
-
-				<LinearLayout
-					android:layout_weight="3"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:orientation="vertical"
-					android:padding="32dp"
-					android:gravity="center">
-
-					<TextView
-						android:id="@+id/detail_product_title"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="16dp"
-						android:fontFamily="@font/proxima_nova_alt_light"
-						android:textSize="48sp"
-						android:text="Title" />
-
-					<TextView
-						android:id="@+id/detail_product_price"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="24dp"
-						android:fontFamily="@font/neutra_text_light"
-						android:textColor="@android:color/holo_orange_dark"
-						android:textSize="36sp"
-						android:text="Rp 1.000.000" />
+					android:id="@+id/detail_product_main"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:padding="32dp">
 
 					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
+						android:layout_weight="2"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
 						android:orientation="vertical"
-						android:layout_marginBottom="24dp">
+						android:paddingTop="32dp"
+						android:paddingBottom="32dp"
+						android:paddingLeft="64dp"
+						android:paddingRight="64dp">
+
+						<com.synnapps.carouselview.CarouselView
+							android:id="@+id/detail_product_list_img"
+							android:layout_width="match_parent"
+							android:layout_height="350dp"
+							android:paddingVertical="25dp"
+							app:fillColor="@color/colorPrimary"
+							app:pageColor="#00000000"
+							app:radius="5dp"
+							app:slideInterval="5000"
+							app:strokeColor="@color/colorAccent"
+							app:strokeWidth="1dp" />
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_weight="3"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:orientation="vertical"
+						android:padding="32dp"
+						android:gravity="center">
 
 						<TextView
+							android:id="@+id/detail_product_title"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginBottom="8dp"
-							android:fontFamily="@font/proxima_nova_extrabold"
-							android:text="Descriptions and Detail"
+							android:layout_marginBottom="16dp"
+							android:fontFamily="@font/proxima_nova_alt_light"
+							android:textSize="48sp"
+							android:text="Title" />
+
+						<TextView
+							android:id="@+id/detail_product_price"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="24dp"
+							android:fontFamily="@font/neutra_text_light"
+							android:textColor="@android:color/holo_orange_dark"
+							android:textSize="36sp"
+							android:text="Rp 1.000.000" />
+
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="vertical"
+							android:layout_marginBottom="24dp">
+
+							<TextView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginBottom="8dp"
+								android:fontFamily="@font/proxima_nova_extrabold"
+								android:text="Descriptions and Detail"
+								android:textSize="24sp" />
+
+							<TextView
+								android:id="@+id/detail_product_desc"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:fontFamily="@font/neutra_text_demi_italic"
+								android:text="Desc desc desc desc"
+								android:textSize="24sp" />
+
+						</LinearLayout>
+
+						<TextView
+							android:id="@+id/detail_product_metal"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="4dp"
+							android:fontFamily="@font/proxima_nova_regular"
+							android:text="METAL - 100%"
 							android:textSize="24sp" />
 
 						<TextView
-							android:id="@+id/detail_product_desc"
+							android:id="@+id/detail_product_weight"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:fontFamily="@font/neutra_text_demi_italic"
-							android:text="Desc desc desc desc"
+							android:layout_marginBottom="16dp"
+							android:fontFamily="@font/proxima_nova_regular"
+							android:text="Weight Est. : WEIGHT gram"
 							android:textSize="24sp" />
 
 					</LinearLayout>
 
-					<TextView
-						android:id="@+id/detail_product_color"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="4dp"
-						android:fontFamily="@font/proxima_nova_regular"
-						android:text="Color : COLOR"
-						android:textSize="24sp" />
-
-					<TextView
-						android:id="@+id/detail_product_weight"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="16dp"
-						android:fontFamily="@font/proxima_nova_regular"
-						android:text="Weight Est. : WEIGHT gram"
-						android:textSize="24sp" />
-
 				</LinearLayout>
 
-			</LinearLayout>
+				<ImageButton
+					android:id="@+id/button_back"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentTop="true"
+					android:layout_alignParentLeft="true"
+					android:layout_margin="24dp"
+					android:scaleType="center"
+					app:srcCompat="@drawable/ic_back"
+					android:background="#00000000" />
+
+			</RelativeLayout>
 
 			<LinearLayout
 				android:layout_width="match_parent"

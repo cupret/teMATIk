@@ -17,29 +17,43 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
-		<!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-			<!--android:id="@+id/fab"-->
-			<!--android:layout_width="wrap_content"-->
-			<!--android:layout_height="wrap_content"-->
-			<!--android:layout_gravity="start|top"-->
-			<!--android:layout_margin="32dp"/>-->
-
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<com.synnapps.carouselview.CarouselView
-				android:id="@+id/detail_promo_list_img"
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:fillColor="@color/colorPrimary"
-				app:pageColor="#00000000"
-				app:radius="5dp"
-				app:slideInterval="5000"
-				app:strokeColor="@color/colorAccent"
-				app:strokeWidth="1dp"
-				android:background="@android:color/darker_gray"/>
+				android:layout_height="wrap_content">
+
+				<com.synnapps.carouselview.CarouselView
+					android:id="@+id/detail_promo_list_img"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:fillColor="@color/colorPrimary"
+					app:pageColor="#00000000"
+					app:radius="5dp"
+					app:slideInterval="5000"
+					app:strokeColor="@color/colorAccent"
+					app:strokeWidth="1dp"
+					android:background="#00000000"/>
+
+				<ImageButton
+					android:id="@+id/button_back"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentLeft="true"
+					android:layout_alignParentTop="true"
+					android:layout_margin="24dp"
+					android:layout_marginStart="24dp"
+					android:layout_marginTop="24dp"
+					android:layout_marginEnd="24dp"
+					android:layout_marginBottom="24dp"
+					android:background="#00000000"
+					android:scaleType="center"
+					app:srcCompat="@drawable/ic_back" />
+
+			</RelativeLayout>
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -57,16 +71,35 @@
 					android:text="TITLE"
 					android:textColor="@color/colorPrimaryDark"
 					android:textSize="48sp" />
-
-				<TextView
-					android:id="@+id/detail_promo_date_to"
+				
+				<LinearLayout
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:fontFamily="@font/neutra_text_demi_italic"
-					android:gravity="center"
-					android:text="To: 00-00-0000"
-					android:textColor="@color/colorPrimaryDark"
-					android:textSize="32sp" />
+					android:orientation="vertical"
+					android:gravity="right">
+
+					<TextView
+						android:id="@+id/detail_promo_date_from"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/neutra_text_demi_italic"
+						android:gravity="center"
+						android:text="From: 00-00-0000"
+						android:textColor="@color/colorPrimaryDark"
+						android:textSize="32sp" />
+
+					<TextView
+						android:id="@+id/detail_promo_date_to"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/neutra_text_demi_italic"
+						android:gravity="center"
+						android:text="To: 00-00-0000"
+						android:textColor="@color/colorPrimaryDark"
+						android:textSize="32sp" />
+				</LinearLayout>
+
+
 
 			</LinearLayout>
 
