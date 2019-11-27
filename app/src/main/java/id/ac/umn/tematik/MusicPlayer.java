@@ -1,6 +1,6 @@
 package id.ac.umn.tematik;
 
-import android.app.DownloadManager;
+    import android.app.DownloadManager;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -78,7 +78,7 @@ public class MusicPlayer {
             if(downloader!=null && !downloader.isDownloading()) {
                 canPlay = true;
 
-//                checkFiles(musicNames);
+                checkFiles(musicNames);
                 mySongs = findSongs(Environment.getExternalStorageDirectory());
 
                 Log.e("ey","Data: " + mySongs.size());
@@ -86,11 +86,15 @@ public class MusicPlayer {
 
                 for(int i=0;i<mySongs.size();i++){
                     items[i] = mySongs.get(i).getName().replace(".mp3", "");
-                    Log.e("e","asd");
+                    Log.e("asdasd",mySongs.get(i).getName());
                 }
 
                 mp = MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(0).toString()));
-                mp.start();
+                try{
+                    mp.start();
+                }catch(Exception e){
+                    Log.e("e", "fukkin file is html");
+                }
                 isPlay = true;
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -102,10 +106,17 @@ public class MusicPlayer {
         }
         else {
             if (isPlay) {
-                mp.pause();
+                if(mp!=null)mp.pause();
                 isPlay = false;
             } else {
-                mp.start();
+                try{
+                    if(mp == null) mp = MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(playIndex).toString()));
+                    mp.start();
+                }catch(Exception e){
+                    Log.e("e", "fukkin file is html");
+                    mpNext();
+                    mpPlay();
+                }
                 isPlay = true;
             }
         }
@@ -115,22 +126,24 @@ public class MusicPlayer {
     }
     void mpNext(){
         playIndex++;
-        mp.release();
         if(playIndex >= mySongs.size()){
             playIndex = 0;
         }
+        if(mp!=null)mp.release();
+        else return;
         mp =  MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(playIndex).toString()));
         isPlay=false;
         mpPlay();
     }
     void mpPrev(){
-        mp.release();
         if(playIndex <= 0){
             playIndex = mySongs.size() - 1;
         }
         else{
             playIndex--;
         }
+        if(mp!=null)mp.release();
+        else return;
         mp =  MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(playIndex).toString()));
         isPlay=false;
         mpPlay();
@@ -170,6 +183,7 @@ public class MusicPlayer {
     }
 
     public String nameToMp(String name){
+        name = name.replace(" ","");
         if(name.endsWith(".mp3"))return name;
         else return name + ".mp3";
     }

@@ -269,14 +269,14 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 musicPlayer.mpNext();
-                bar.setMax(musicPlayer.mp.getDuration());
+//                bar.setMax(musicPlayer.mp.getDuration());
             }
         });
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicPlayer.mpPrev();
-                bar.setMax(musicPlayer.mp.getDuration());
+//                bar.setMax(musicPlayer.mp.getDuration());
             }
         });
         showPlaylist.setOnClickListener(new View.OnClickListener() {
@@ -298,36 +298,36 @@ public class Main extends Fragment {
             }
         });
 
-        thr = new Thread(){
-            @Override
-            public void run() {
-                Log.e("asd", "haix1");
-                int totalDuration = 100;
-                if(musicPlayer.canPlay) totalDuration = musicPlayer.mp.getDuration();
-                int currentPosition = 0;
-                bar.setMax(totalDuration);
-                while (currentPosition < totalDuration) {
-                    try {
-                        sleep(1000);
-                        if(!barMove){
-                            if(musicPlayer.canPlay) currentPosition = musicPlayer.mp.getCurrentPosition();
-                            bar.setProgress(currentPosition);
-                        }
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        thr.start();
+//        thr = new Thread(){
+//            @Override
+//            public void run() {
+//                Log.e("asd", "haix1");
+//                int totalDuration = 100;
+//                if(musicPlayer.canPlay) totalDuration = musicPlayer.mp.getDuration();
+//                int currentPosition = 0;
+//                bar.setMax(totalDuration);
+//                while (currentPosition < totalDuration) {
+//                    try {
+//                        sleep(1000);
+//                        if(!barMove){
+//                            if(musicPlayer.canPlay) currentPosition = musicPlayer.mp.getCurrentPosition();
+//                            bar.setProgress(currentPosition);
+//                        }
+//                    } catch (InterruptedException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        };
+//        thr.start();
 
         bar = view.findViewById(R.id.seekBar);
         bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar arg0) {
                 // TODO Auto-generated method stub
-                musicPlayer.mpSeek(arg0.getProgress());
+//                musicPlayer.mpSeek(arg0.getProgress());
                 barMove = false;
             }
             @Override

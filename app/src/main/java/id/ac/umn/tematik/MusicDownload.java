@@ -36,7 +36,7 @@ public class MusicDownload {
     };
 
     public boolean isDownloading(){
-        if(songDownloading == 0){
+        if(songDownloading <= 0){
 //            ctx.unregisterReceiver(onComplete);
             return false;
         }
@@ -47,7 +47,7 @@ public class MusicDownload {
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music/" + name);
         if(!file.exists()){
             DownloadManager.Request request = new DownloadManager.Request(uri)
-                    .setTitle("Test Download")// Title of the Download Notification
+                    .setTitle("Downloading Music: " + name)// Title of the Download Notification
                     .setDescription("Downloading")// Description of the Download Notification
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)// Visibility of the download Notification
                     .setDestinationInExternalPublicDir("/Music", name)
