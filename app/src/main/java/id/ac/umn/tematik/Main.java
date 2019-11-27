@@ -246,40 +246,6 @@ public class Main extends Fragment {
         final ImageButton play = view.findViewById(R.id.fragment_main_playpause);
         ImageButton next = view.findViewById(R.id.fragment_main_next);
         ImageButton prev = view.findViewById(R.id.fragment_main_prev);
-        Button btn = view.findViewById(R.id.button);
-        // idle video
-        final VideoView vv = view.findViewById(R.id.videoView);
-        final MediaController media_controller = new MediaController(this.getContext());
-        vv.setMediaController(media_controller);
-        LocalDatabase.getInstance(getContext()).videoQuery().getLiveDataVideo().observe(this, new Observer<List<Video>>() {
-            @Override
-            public void onChanged(List<Video> videos) {
-                // check if video available
-                // video only 1 so only check video[0]
-                // auto update video view uri
-                if(videos != null && videos.get(0) != null) {
-                    Video video = videos.get(0);
-                    File idv = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + video.getName());
-                    vv.setVideoURI(Uri.parse(idv.toString()));
-                }
-            }
-        });
-        vv.setVisibility(View.VISIBLE);
-        vv.start();
-        vv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vv.setVisibility(View.INVISIBLE);
-            }
-        });
-        vv.setVisibility(View.INVISIBLE);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vv.setVisibility(View.VISIBLE);
-            }
-        });
-
 
         // playlist layout
         final ImageButton showPlaylist = view.findViewById(R.id.fragment_main_openplaylist);

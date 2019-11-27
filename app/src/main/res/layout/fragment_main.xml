@@ -9,15 +9,6 @@
 
 	<!-- TODO: Update blank fragment layout -->
 
-	<Button
-		android:id="@+id/button"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="64dp"
-		android:text="Button"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="parent" />
-
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/fragment_main_scroll_refresh"
 		android:layout_width="0dp"
@@ -273,15 +264,5 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.85" />
-
-	<VideoView
-		android:id="@+id/videoView"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
