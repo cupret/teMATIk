@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
 
     private Handler handler = new Handler();
-    private Integer timer = 0, stop = 10;
+    private Integer timer = 0, stop = 30;
     private boolean idle = false;
 
     @Override
