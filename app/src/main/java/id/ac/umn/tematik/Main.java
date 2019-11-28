@@ -253,6 +253,53 @@ public class Main extends Fragment {
 
         if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
         musicPlayer.mpDownloadFromPlaylist(playListMusicPlay);
+
+        bar = view.findViewById(R.id.seekBar);
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+                if(musicPlayer.isPlay)musicPlayer.mpSeek(arg0.getProgress());
+                barMove = false;
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+                barMove = true;
+            }
+            @Override
+            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+                // TODO Auto-generated method stub
+                if(barMove && musicPlayer.isPlay)musicPlayer.mpSeek(arg0.getProgress());
+            }
+        });
+
+        thr = new Thread(){
+            int totalDuration = 100;
+            int currentPosition = 0;
+            @Override
+            public void run() {
+                Log.e("asd", "haix1");
+                try{
+                    while (true) {
+                        try {
+                            if(musicPlayer.canPlay) totalDuration = musicPlayer.mp.getDuration();
+                            bar.setMax(totalDuration);
+                            sleep(1000);
+                            if(!barMove){
+                                if(musicPlayer.canPlay) currentPosition = musicPlayer.mp.getCurrentPosition();
+                                bar.setProgress(currentPosition);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }catch(Exception e){
+
+                }
+            }
+        };
+        thr.start();
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,14 +316,12 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 musicPlayer.mpNext();
-//                bar.setMax(musicPlayer.mp.getDuration());
             }
         });
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 musicPlayer.mpPrev();
-//                bar.setMax(musicPlayer.mp.getDuration());
             }
         });
         showPlaylist.setOnClickListener(new View.OnClickListener() {
@@ -298,49 +343,6 @@ public class Main extends Fragment {
             }
         });
 
-//        thr = new Thread(){
-//            @Override
-//            public void run() {
-//                Log.e("asd", "haix1");
-//                int totalDuration = 100;
-//                if(musicPlayer.canPlay) totalDuration = musicPlayer.mp.getDuration();
-//                int currentPosition = 0;
-//                bar.setMax(totalDuration);
-//                while (currentPosition < totalDuration) {
-//                    try {
-//                        sleep(1000);
-//                        if(!barMove){
-//                            if(musicPlayer.canPlay) currentPosition = musicPlayer.mp.getCurrentPosition();
-//                            bar.setProgress(currentPosition);
-//                        }
-//                    } catch (InterruptedException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        };
-//        thr.start();
-
-        bar = view.findViewById(R.id.seekBar);
-        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onStopTrackingTouch(SeekBar arg0) {
-                // TODO Auto-generated method stub
-//                musicPlayer.mpSeek(arg0.getProgress());
-                barMove = false;
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar arg0) {
-                // TODO Auto-generated method stub
-                barMove = true;
-            }
-            @Override
-            public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-                // TODO Auto-generated method stub
-//                if(barMove)musicPlayer.mpSeek(arg0.getProgress());
-            }
-        });
 
     }
 
