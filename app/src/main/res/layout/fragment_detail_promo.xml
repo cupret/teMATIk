@@ -36,7 +36,7 @@
 					app:slideInterval="5000"
 					app:strokeColor="@color/colorAccent"
 					app:strokeWidth="1dp"
-					android:background="#00000000"/>
+					android:background="@color/backgroundDark"/>
 
 				<ImageButton
 					android:id="@+id/button_back"
