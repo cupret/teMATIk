@@ -54,6 +54,8 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
         holder.bind(music.getId(), position, name);
     }
 
+
+
     @Override
     public int getItemCount() {
         return musics.size();
@@ -72,11 +74,12 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             line = itemView.findViewById(R.id.playlist_list_line);
         }
 
-        public void bind(final Integer id, Integer index, String title){
+        public void bind(final Integer id, final Integer index, String title){
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // play music
+                    MusicPlayer.getInstance().changeMusicIndex(index);
                 }
             });
             indexText.setText(index.toString());

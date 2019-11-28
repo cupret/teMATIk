@@ -18,7 +18,7 @@ public class ApiServiceProvider{
     private ApiService apiService;
     static final String API_URL = "https://tematik-daab8.firebaseio.com/";
 
-    public ApiServiceProvider(){
+    public ApiServiceProvider() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())

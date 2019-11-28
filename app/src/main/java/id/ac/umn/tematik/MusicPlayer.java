@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MusicPlayer {
+    private static MusicPlayer musicPlayer;
     public MediaPlayer mp;
     public DownloadManager dm;
     public ArrayList<File> mySongs;
@@ -27,29 +28,29 @@ public class MusicPlayer {
     public boolean canPlay;
     public ArrayList<String> musicNames;
 
+    public static MusicPlayer getInstance(){
+
+        return musicPlayer;
+
+    }
+    public static MusicPlayer getInstance(View view, Context context){
+        if(musicPlayer == null){
+            musicPlayer = new MusicPlayer(view, context);
+        }
+        return musicPlayer;
+
+    }
+
+
     public MusicPlayer(View view, Context context){
         Log.e("asd", "hai2");
         isPlay = false;
         canPlay = false;
         this.ctx = context;
         this.view = view;
-        String[] str = {"weakboi.mp3", "strongboi.mp3"};
-        String[] url = {"https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/AndroidDownloadManager.mp3","https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/AndroidDownloadManager.mp3"};
-        Log.e("asd", "hai3");
-        Log.e("asd", "hai6");
         playIndex = 0;
 
-        String strV = "hMan.mp4";
-        String urlV = "https://firebasestorage.googleapis.com/v0/b/tematik-daab8.appspot.com/o/videoplayback_3.mp4?alt=media&token=c9ec771a-083d-4682-b049-ba9e28e10748";
 
-
-        //downloader
-//        downloader = new MusicDownload(view, context);
-//        downloader.DownloadSongs(url, str);
-
-//        downloader.DownloadVideo(urlV,strV);
-
-        //
         Log.e("asd", "hai7");
         Log.e("ey",Environment.getExternalStorageDirectory().getAbsolutePath());
     }
@@ -129,6 +130,7 @@ public class MusicPlayer {
         if(playIndex >= mySongs.size()){
             playIndex = 0;
         }
+
         if(mp!=null)mp.release();
         else return;
         mp =  MediaPlayer.create(ctx.getApplicationContext(), Uri.parse(mySongs.get(playIndex).toString()));
@@ -202,6 +204,10 @@ public class MusicPlayer {
         }
     }
 
+    public void changeMusicIndex(int index){
+        playIndex = index-1;
+        mpNext();
+    }
 
 
 }

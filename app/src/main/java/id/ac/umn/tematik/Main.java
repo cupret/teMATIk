@@ -63,6 +63,8 @@ public class Main extends Fragment {
     final DisplayMetrics metrics = new DisplayMetrics();
     WindowManager windowManager;
 
+
+
     private MusicPlayer musicPlayer;
     private Thread thr;
     private SeekBar bar;
@@ -168,11 +170,11 @@ public class Main extends Fragment {
                 // get active playlist
                 ArrayList<PlayList.Music> musics = PlayList.getActivePlaylistMusics((ArrayList<PlayList>) playLists);
                 if(!musics.isEmpty()) {
+                    playListMusicPlay = musics;
+                    initMP();
                     playlistListAdapter.SetData(musics);
                     playlistListAdapter.notifyDataSetChanged();
-                    playListMusicPlay = musics;
-//                    playlistListAdapter.setMainClass(Main.this);
-                    initMP();
+
                 } else {
                     Log.e("DEBUG", "Playlist list is empty");
                 }
@@ -252,7 +254,7 @@ public class Main extends Fragment {
         final ImageButton showPlaylist = view.findViewById(R.id.fragment_main_openplaylist);
         final RelativeLayout musicPlayerLayout = view.findViewById(R.id.fragment_main_musicplayer);
 
-        if(musicPlayer == null) musicPlayer = new MusicPlayer(view,getContext());
+        if(musicPlayer == null) musicPlayer = MusicPlayer.getInstance(view, getContext());
         musicPlayer.mpDownloadFromPlaylist(playListMusicPlay);
 
         bar = view.findViewById(R.id.seekBar);
