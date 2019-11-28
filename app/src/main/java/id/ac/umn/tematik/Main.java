@@ -171,6 +171,7 @@ public class Main extends Fragment {
                     playlistListAdapter.SetData(musics);
                     playlistListAdapter.notifyDataSetChanged();
                     playListMusicPlay = musics;
+//                    playlistListAdapter.setMainClass(Main.this);
                     initMP();
                 } else {
                     Log.e("DEBUG", "Playlist list is empty");
@@ -342,8 +343,11 @@ public class Main extends Fragment {
                 musicPlayerLayout.setLayoutParams(params);
             }
         });
+    }
+    public void changeMusic(int index){
+        if(musicPlayer != null){
 
-
+        }
     }
 
 }
