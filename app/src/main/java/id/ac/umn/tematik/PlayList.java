@@ -45,14 +45,16 @@ public class PlayList {
     public static ArrayList<Music> getActivePlaylistMusics(ArrayList<PlayList> playLists){
         ArrayList<Music> musics = new ArrayList<>();
 
-//        long prevStartDate = 0;
+        long prevStartDate = 0;
         for(PlayList value: playLists) {
             long start = stringToDateLong(value.getStart_date());
             long end = stringToDateLong(value.getEnd_date());
             long today = stringToDateLong(new Date().toString());
-            if(start <= today && today <= end) {
-//                prevStartDate = start;
-                musics = value.getMusicList();
+            if(start >= prevStartDate) {
+                prevStartDate = start;
+                if(start <= today && today <= end) {
+                    musics = value.getMusicList();
+                }
             }
         }
 
