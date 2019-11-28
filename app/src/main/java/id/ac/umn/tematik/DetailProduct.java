@@ -161,7 +161,7 @@ public class DetailProduct extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                navController.navigateUp();
             }
         });
     }
