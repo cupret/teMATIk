@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class DetailProduct extends Fragment {
 
     private NavController navController;
 
+    private ImageButton backButton;
     private TextView name;
     private CarouselView produkImg;
     private TextView produkPrice;
@@ -90,6 +92,7 @@ public class DetailProduct extends Fragment {
         navController =  NavHostFragment.findNavController(this);
 
         // init views
+        backButton = view.findViewById(R.id.button_back);
         name = view.findViewById(R.id.detail_product_title);
         produkImg = view.findViewById(R.id.detail_product_list_img);
         produkPrice = view.findViewById(R.id.detail_product_price);
@@ -151,6 +154,14 @@ public class DetailProduct extends Fragment {
                     produkImg.setPageCount(urls.size());
                 else
                     produkImg.setPageCount(0);
+            }
+        });
+
+        // back button
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
     }

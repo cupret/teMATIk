@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -63,6 +64,7 @@ public class DetailPromo extends Fragment {
         }
     };
 
+    private ImageButton backButton;
     private TextView name;
     private TextView dateFrom;
     private TextView dateTo;
@@ -111,6 +113,7 @@ public class DetailPromo extends Fragment {
         navController =  NavHostFragment.findNavController(this);
 
         // init views
+        backButton = view.findViewById(R.id.button_back);
         name = view.findViewById(R.id.detail_promo_title);
         dateFrom = view.findViewById(R.id.detail_promo_date_from);
         dateTo = view.findViewById(R.id.detail_promo_date_to);
@@ -167,6 +170,14 @@ public class DetailPromo extends Fragment {
 
         product_imgs.setLayoutManager(layoutManager);
         product_imgs.setAdapter(productListAdapter);
+
+        // back button
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 
 //    @Override
