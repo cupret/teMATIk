@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
 
     private Handler handler = new Handler();
-    private Integer timer = 0, stop = 60;
+    private Integer timer = 0, stop = 15;
     private boolean idle = false;
     public boolean vidMute = true;
 
@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setVidMute(){
         vidMute = !vidMute;
+        MusicPlayer.getInstance().changeVolume(15);
     }
 
 }

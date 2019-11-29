@@ -120,6 +120,8 @@ public class MusicPlayer {
                     mpPlay();
                 }
                 isPlay = true;
+                if(isMute) mp.setVolume(0,0);
+                else mp.setVolume(15,15);
             }
         }
     }
@@ -127,6 +129,10 @@ public class MusicPlayer {
         mp.pause();
     }
     void mpNext(){
+
+        if(playIndex <= 0){
+            playIndex = 0;
+        }
         playIndex++;
         if(playIndex >= mySongs.size()){
             playIndex = 0;
@@ -206,7 +212,8 @@ public class MusicPlayer {
     }
 
     public void changeMusicIndex(int index){
-        playIndex = index-1;
+        Log.e("e", ""+index);
+        playIndex = index;
         mpNext();
     }
     public void changeVolume(float vol){
