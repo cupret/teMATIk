@@ -27,6 +27,7 @@ public class MusicPlayer {
     public MusicDownload downloader;
     public boolean canPlay;
     public ArrayList<String> musicNames;
+    public boolean isMute = false;
 
     public static MusicPlayer getInstance(){
 
@@ -208,6 +209,8 @@ public class MusicPlayer {
         playIndex = index-1;
         mpNext();
     }
-
+    public void changeVolume(float vol){
+        mp.setVolume(vol, vol);
+    }
 
 }

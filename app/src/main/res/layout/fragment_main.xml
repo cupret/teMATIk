@@ -49,12 +49,12 @@
 					android:layout_height="wrap_content"
 					android:layout_gravity="center"
 					android:layout_marginTop="32dp"
-					android:text="Nama Company"
 					android:fontFamily="@font/proxima_nova_extrabold"
+					android:text="Nama Company"
 					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:textColor="@color/colorPrimaryDark"
 					android:textSize="48sp"
-					android:textStyle="bold"
-					android:textColor="@color/colorPrimaryDark"/>
+					android:textStyle="bold" />
 
 				<TextView
 					android:id="@+id/aboutusid"
@@ -140,6 +140,22 @@
 				app:layout_constraintGuide_percent="0.95" />
 
 			<ImageButton
+				android:id="@+id/fragment_main_mute"
+				style="@style/Widget.AppCompat.ImageButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:adjustViewBounds="true"
+				android:background="@android:drawable/screen_background_light_transparent"
+				android:backgroundTint="@android:color/transparent"
+				android:scaleType="center"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/fragment_main_prev"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:srcCompat="@android:drawable/ic_lock_silent_mode" />
+
+			<ImageButton
 				android:id="@+id/fragment_main_prev"
 				style="@style/Widget.AppCompat.ImageButton"
 				android:layout_width="wrap_content"
@@ -152,7 +168,7 @@
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toStartOf="@+id/fragment_main_playpause"
 				app:layout_constraintHorizontal_bias="0.5"
-				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/fragment_main_mute"
 				app:layout_constraintTop_toTopOf="parent"
 				app:srcCompat="@android:drawable/ic_media_previous" />
 

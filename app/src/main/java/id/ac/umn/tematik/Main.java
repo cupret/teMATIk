@@ -72,6 +72,7 @@ public class Main extends Fragment {
     private final int PERMISSIONS_WRITE_STORAGE= 1;
     private boolean isPlaying = false;
     private boolean isOpenPlaylist = false;
+    private boolean isMute = true;
 
     // carousel view
     List<Promo> promos = new ArrayList<Promo>();
@@ -249,6 +250,7 @@ public class Main extends Fragment {
         final ImageButton play = view.findViewById(R.id.fragment_main_playpause);
         ImageButton next = view.findViewById(R.id.fragment_main_next);
         ImageButton prev = view.findViewById(R.id.fragment_main_prev);
+        ImageButton mute = view.findViewById(R.id.fragment_main_mute);
 
         // playlist layout
         final ImageButton showPlaylist = view.findViewById(R.id.fragment_main_openplaylist);
@@ -325,6 +327,13 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 musicPlayer.mpPrev();
+            }
+        });
+        mute.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                MusicPlayer.getInstance().isMute = !MusicPlayer.getInstance().isMute;
+                Log.e("e", "" + MusicPlayer.getInstance().isMute);
             }
         });
         showPlaylist.setOnClickListener(new View.OnClickListener() {

@@ -10,6 +10,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private Integer timer = 0, stop = 60;
     private boolean idle = false;
+    public boolean vidMute = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +195,25 @@ public class MainActivity extends AppCompatActivity {
                 else if(!idle){
                     vv.setVisibility(View.VISIBLE);
                     vv.start();
+                    if(!MusicPlayer.getInstance().isMute){
+                        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mediaPlayer) {
+                                mediaPlayer.setVolume(0,0);
+                            }
+                        });
+                        MusicPlayer.getInstance().changeVolume(15);
+
+                    }
+                    else{
+                        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mediaPlayer) {
+                                mediaPlayer.setVolume(15,15);
+                            }
+                        });
+                        MusicPlayer.getInstance().changeVolume(0);
+                    }
                     idle = true;
                     Log.i("timer", "idle");
                 }
@@ -212,6 +233,9 @@ public class MainActivity extends AppCompatActivity {
     public void onUserInteraction(){
         timer = 0;
         idle = false;
+    }
+    public void setVidMute(){
+        vidMute = !vidMute;
     }
 
 }
