@@ -236,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setVidMute(){
         vidMute = !vidMute;
-        MusicPlayer.getInstance().changeVolume(15);
     }
 
 }

@@ -120,8 +120,7 @@ public class MusicPlayer {
                     mpPlay();
                 }
                 isPlay = true;
-                if(isMute) mp.setVolume(0,0);
-                else mp.setVolume(15,15);
+                changeVolume(15);
             }
         }
     }
@@ -129,10 +128,6 @@ public class MusicPlayer {
         mp.pause();
     }
     void mpNext(){
-
-        if(playIndex <= 0){
-            playIndex = 0;
-        }
         playIndex++;
         if(playIndex >= mySongs.size()){
             playIndex = 0;
@@ -213,8 +208,17 @@ public class MusicPlayer {
 
     public void changeMusicIndex(int index){
         Log.e("e", ""+index);
-        playIndex = index;
+        playIndex = index-1;
         mpNext();
+    }
+    public void changeMusicTitle(String title){
+        for(int x = 0; x < mySongs.size(); x++){
+//            Log.e("e",title.replace(" ", "") + " and " + mySongs.get(x).getName());
+            if(nameToMp(title).equals(mySongs.get(x).getName())){
+                changeMusicIndex(x);
+                break;
+            }
+        }
     }
     public void changeVolume(float vol){
         mp.setVolume(vol, vol);

@@ -74,12 +74,13 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             line = itemView.findViewById(R.id.playlist_list_line);
         }
 
-        public void bind(final Integer id, final Integer index, String title){
+        public void bind(final Integer id, final Integer index, final String title){
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // play music
-                    MusicPlayer.getInstance().changeMusicIndex(index);
+//                    MusicPlayer.getInstance().changeMusicIndex(index);
+                    MusicPlayer.getInstance().changeMusicTitle(title);
                 }
             });
             indexText.setText(index.toString());
