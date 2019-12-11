@@ -83,7 +83,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
                     MusicPlayer.getInstance().changeMusicTitle(title);
                 }
             });
-            indexText.setText(index.toString());
+            indexText.setText("");
             titleText.setText(title);
 
             // show line if not last index

@@ -104,6 +104,7 @@ public class MusicPlayer {
                         mpNext();
                     }
                 });
+                mp.setVolume(15,15);
             }
         }
         else {
@@ -125,6 +126,7 @@ public class MusicPlayer {
         }
     }
     void mpPause(){
+        isPlay = false;
         mp.pause();
     }
     void mpNext(){

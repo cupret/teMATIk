@@ -354,6 +354,7 @@ public class Main extends Fragment {
                 musicPlayerLayout.setLayoutParams(params);
             }
         });
+        if(!musicPlayer.isPlay)musicPlayer.mpPlay();
     }
     public void changeMusic(int index){
         if(musicPlayer != null){

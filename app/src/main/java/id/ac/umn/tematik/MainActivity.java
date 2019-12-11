@@ -183,6 +183,12 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                vv.start();
+            }
+        });
         vv.setVisibility(View.INVISIBLE);
 
         handler.postDelayed(new Runnable() {
@@ -212,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                                 mediaPlayer.setVolume(15,15);
                             }
                         });
-                        MusicPlayer.getInstance().changeVolume(0);
+                        MusicPlayer.getInstance().mpPause();
                     }
                     idle = true;
                     Log.i("timer", "idle");
@@ -232,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onUserInteraction(){
         timer = 0;
+        if(idle && !MusicPlayer.getInstance().isPlay) MusicPlayer.getInstance().mpPlay();
         idle = false;
     }
     public void setVidMute(){
