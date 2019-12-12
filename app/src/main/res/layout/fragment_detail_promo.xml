@@ -121,13 +121,6 @@
 
 			</LinearLayout>
 
-			<VideoView
-				android:id="@+id/detail_promo_vid"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:paddingTop="25dp"
-				android:paddingBottom="10dp" />
-
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -141,6 +134,23 @@
 					tools:layoutManager="GridLayoutManager"
 					tools:listitem="@layout/product_list"
 					tools:spanCount="4"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/detail_promo_cont_vid"
+				android:layout_width="match_parent"
+				android:layout_height="512dp"
+				android:paddingLeft="32dp"
+				android:paddingRight="32dp"
+				android:paddingTop="10dp"
+				android:paddingBottom="32dp"
+				android:gravity="center">
+
+				<VideoView
+					android:id="@+id/detail_promo_vid"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
 
 			</LinearLayout>
 
