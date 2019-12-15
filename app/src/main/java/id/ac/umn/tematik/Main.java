@@ -294,7 +294,9 @@ public class Main extends Fragment {
                             if(!barMove){
                                 if(musicPlayer.canPlay) currentPosition = musicPlayer.mp.getCurrentPosition();
                                 bar.setProgress(currentPosition);
+                                if(currentPosition >= (totalDuration * 99 / 100)) musicPlayer.mpNext();
                             }
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

@@ -101,6 +101,8 @@ public class MusicPlayer {
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
+                        Log.e("song", "song next pls");
+                        mpPlay();
                         mpNext();
                     }
                 });
