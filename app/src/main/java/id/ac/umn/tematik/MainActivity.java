@@ -116,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 Video video = videos.get(0);
                 Log.i("vidd", " try download "+video.getName());
 
+                File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video");
+                if (!folder.exists()) folder.mkdirs();
+
                 File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + video.getName());
                 if(!file.exists()){
                     Log.e("vidd", "!exist");

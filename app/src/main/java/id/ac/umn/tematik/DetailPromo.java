@@ -3,6 +3,7 @@ package id.ac.umn.tematik;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -155,9 +157,11 @@ public class DetailPromo extends Fragment {
             @Override
             public void onChanged(Promo promo) {
                 name.setText(promo.getName().toUpperCase());
-                dateFrom.setText("From: " + promo.getStart_date());
-                dateTo.setText("To: " + promo.getEnd_date());
+                dateFrom.setText(promo.getStart_date());
+                dateTo.setText(promo.getEnd_date());
+
                 desc.setText(promo.getDescription());
+                desc.setTypeface(ResourcesCompat.getFont(getContext(), R.font.neutra_text_demi_italic));
 
                 // assign detail promo list img carousel view
                 urls = promo.getImages_url();
@@ -238,6 +242,9 @@ public class DetailPromo extends Fragment {
         protected String doInBackground(String... args) {
 
             if(args[1] != null) {
+                File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video");
+                if (!folder.exists()) folder.mkdirs();
+
                 File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/promo_" + args[0]);
                 if(!file.exists()){
                     Log.e("viddPromo", "!exist");

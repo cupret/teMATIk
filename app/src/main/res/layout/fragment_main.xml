@@ -28,7 +28,8 @@
 				android:id="@+id/fragment_main_scroll_root"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				android:paddingBottom="16dp">
 
 				<com.synnapps.carouselview.CarouselView
 					android:id="@+id/fragment_main_promo"
@@ -61,46 +62,48 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center"
-					android:layout_marginTop="20dp"
+					android:layout_marginTop="32dp"
 					android:text="About Us"
 					android:fontFamily="@font/proxima_nova_alt_bold"
 					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textSize="32sp"
 					android:textColor="@color/colorAccent" />
 
-				<TextView
+				<com.codesgood.views.JustifiedTextView
 					android:id="@+id/paragraphid"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="5dp"
 					android:layout_marginHorizontal="20dp"
+					android:lineSpacingExtra="8sp"
 					android:text="@string/description_text"
 					android:fontFamily="@font/proxima_nova_alt_light"
 					android:textAppearance="?android:attr/textAppearanceMedium"
-					android:textSize="20sp"/>
+					android:textSize="24sp"/>
 
 				<TextView
 					android:id="@+id/contactusid"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center"
-					android:layout_marginTop="20dp"
+					android:layout_marginTop="32dp"
 					android:text="Contact Us"
 					android:fontFamily="@font/proxima_nova_alt_bold"
 					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:textSize="32sp"
 					android:textColor="@color/colorAccent" />
 
-				<TextView
+				<com.codesgood.views.JustifiedTextView
 					android:id="@+id/paragraph2id"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="5dp"
 					android:layout_marginHorizontal="20dp"
+					android:lineSpacingExtra="8sp"
 					android:text="@string/contact_us"
 					android:fontFamily="@font/proxima_nova_alt_light"
 					android:textAppearance="?android:attr/textAppearanceMedium"
-					android:textSize="20sp"/>
+					android:textSize="24sp"/>
 
 			</LinearLayout>
 		</androidx.core.widget.NestedScrollView>

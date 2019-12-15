@@ -58,33 +58,50 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal"
+				android:orientation="vertical"
 				android:padding="32dp">
 
 				<TextView
 					android:id="@+id/detail_promo_title"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
 					android:layout_weight="1"
 					android:fontFamily="@font/proxima_nova_alt_thin"
+					android:textStyle="bold"
 					android:gravity="left"
 					android:text="TITLE"
 					android:textColor="@color/colorPrimaryDark"
 					android:textSize="48sp" />
 				
 				<LinearLayout
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:orientation="vertical"
-					android:gravity="right">
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:gravity="right"
+					android:layout_marginTop="8dp">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/neutra_text_light_italic"
+						android:text="From "
+						android:textColor="@color/colorPrimaryDark"
+						android:textSize="32sp" />
 
 					<TextView
 						android:id="@+id/detail_promo_date_from"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:fontFamily="@font/neutra_text_demi_italic"
-						android:gravity="center"
-						android:text="From: 00-00-0000"
+						android:text="00-00-0000"
+						android:textColor="@color/colorPrimaryDark"
+						android:textSize="32sp" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/neutra_text_light_italic"
+						android:text=" until "
 						android:textColor="@color/colorPrimaryDark"
 						android:textSize="32sp" />
 
@@ -109,15 +126,26 @@
 				android:paddingLeft="32dp"
 				android:paddingRight="32dp">
 
-				<TextView
+				<com.codesgood.views.JustifiedTextView
 					android:id="@+id/detail_promo_desc"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:fontFamily="@font/neutra_text_light_italic"
 					android:lineSpacingExtra="16sp"
 					android:text="Description Description Description Description Description Description Description Description Description Description Description Description DescriptionDescriptionDescriptionDescription"
 					android:textColor="@android:color/black"
-					android:textSize="32sp" />
+					android:textSize="32sp"
+					/>
+
+				<!--<TextView-->
+					<!--android:id="@+id/detail_promo_desc"-->
+					<!--android:layout_width="match_parent"-->
+					<!--android:layout_height="wrap_content"-->
+					<!--android:fontFamily="@font/neutra_text_light_italic"-->
+					<!--android:lineSpacingExtra="16sp"-->
+					<!--android:text="Description Description Description Description Description Description Description Description Description Description Description Description DescriptionDescriptionDescriptionDescription"-->
+					<!--android:textColor="@android:color/black"-->
+					<!--android:textSize="32sp"-->
+					<!--/>-->
 
 			</LinearLayout>
 
@@ -140,17 +168,34 @@
 			<LinearLayout
 				android:id="@+id/detail_promo_cont_vid"
 				android:layout_width="match_parent"
-				android:layout_height="512dp"
+				android:layout_height="wrap_content"
 				android:paddingLeft="32dp"
 				android:paddingRight="32dp"
 				android:paddingTop="10dp"
 				android:paddingBottom="32dp"
-				android:gravity="center">
+				android:gravity="center"
+				android:orientation="vertical">
 
-				<VideoView
-					android:id="@+id/detail_promo_vid"
+				<TextView
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/proxima_nova_alt_thin"
+					android:text="Video"
+					android:textColor="@color/colorPrimaryDark"
+					android:textSize="48sp"
+					android:layout_marginBottom="8dp"/>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="512dp"
+					android:gravity="center">
+
+					<VideoView
+						android:id="@+id/detail_promo_vid"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				</LinearLayout>
 
 			</LinearLayout>
 
